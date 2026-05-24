@@ -1,0 +1,27 @@
+Checking for bad blocks in read-write mode
+From block 0 to 488378645
+Testing with pattern 0xaa: done
+Reading and comparing: 15982946done, 4:49:12 elapsed. (0/0/0 errors)
+16427464done, 4:49:39 elapsed. (1/0/0 errors)
+24484888done, 4:53:59 elapsed. (2/0/0 errors)
+24499216done, 4:54:03 elapsed. (3/0/0 errors)
+24509312done, 4:54:07 elapsed. (4/0/0 errors)
+24711362done, 4:54:32 elapsed. (5/0/0 errors)
+24715729done, 4:54:35 elapsed. (6/0/0 errors)
+25161028done, 4:55:05 elapsed. (7/0/0 errors)
+25377699done, 4:55:26 elapsed. (8/0/0 errors)
+25601133done, 4:55:55 elapsed. (9/0/0 errors)
+25601525done, 4:55:58 elapsed. (10/0/0 errors)
+25796574done, 4:56:22 elapsed. (11/0/0 errors)
+25804917done, 4:56:26 elapsed. (12/0/0 errors)
+26456300done, 4:57:09 elapsed. (13/0/0 errors)
+36569442done, 5:02:03 elapsed. (14/0/0 errors)
+36569443done, 5:02:07 elapsed. (15/0/0 errors)
+done
+Testing with pattern 0x55: done
+Reading and comparing: done
+Testing with pattern 0xff: done
+Reading and comparing: done
+Testing with pattern 0x00: done
+Reading and comparing: done
+Pass completed, 16 bad blocks found. (16/0/0 errors)

@@ -1,0 +1,11 @@
+Checking for bad blocks in read-write mode
+From block 0 to 488378645
+Testing with pattern 0xaa: done
+Reading and comparing: done
+Testing with pattern 0x55: done
+Reading and comparing: done
+Testing with pattern 0xff: done
+Reading and comparing: done
+Testing with pattern 0x00: done
+Reading and comparing: done
+Pass completed, 0 bad blocks found. (0/0/0 errors)

@@ -85,11 +85,11 @@ These are the drives I have available (with some more on the way):
 | 2TB | WD Red WD20EFRX-68EUZN0 | WD-WCC4M7YANCD5 | PASSED | PASSED | 0 | — | 56,393 (~6.4 yrs) | 27 | OK |
 | 2TB | Seagate NAS ST2000VN000-1HJ164 | W520VJFQ | PASSED | PASSED | 0 | — | 56,368 (~6.4 yrs) | 28 | OK |
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | WFL3ZBBC | PASSED | PASSED | — | PASSED | 2,451 (~0.3 yrs) | 33 | PENDING (badblocks) |
-| 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | PASSED | PASSED | — | — | 486 (~0.06 yrs) | 24 | PENDING (conveyance, badblocks) |
+| 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | PASSED | PASSED | — | PASSED | 487 (~0.06 yrs) | 20 | PENDING (badblocks) |
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | ZFL0TF34 | PASSED | PASSED | — | PASSED | 36,596 (~4.2 yrs) | 30 | PENDING (badblocks) |
-| 2TB | | | | | | | | | |
-| 2TB | | | | | | | | | |
-| 2TB | | | | | | | | | |
+| 2TB | Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | PASSED | IN PROGRESS | — | — | 6,393 (~0.7 yrs) | 23 | CAUTION (CRC errors) |
+| 2TB | Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | PASSED | IN PROGRESS | — | — | 50,144 (~5.7 yrs) | 23 | CAUTION (UNC errors) |
+| 2TB | Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | PASSED | IN PROGRESS | — | — | 5,157 (~0.6 yrs) | 24 | CAUTION (overheating history) |
 | 2TB | | | | | | | | | |
 | 2TB | | | | | | | | | |
 
@@ -272,32 +272,32 @@ Drive has only ~2,450 power-on hours at time of testing (~0.3 years of active us
 | `2B` | Week code (alphanumeric fiscal week) |
 | `BV0P` | Unit sequence number |
 
-Drive has only ~486 power-on hours at time of testing, consistent with a recent manufacture date (2020s era given the Zhongshan factory designation and IronWolf product line).
+Drive has only ~487 power-on hours at time of testing, consistent with a recent manufacture date (2020s era given the Zhongshan factory designation and IronWolf product line).
 
-⏳ **Overall: PENDING — conveyance test and badblocks still to run**
+⏳ **Overall: PENDING — badblocks still to run**
 
 - ✅ SMART health: PASSED
 - ⏳ Bad blocks: not yet run
-- ✅ Power-on hours: 486 (~0.06 years — essentially new)
-- ✅ Current temperature: 24°C (lifetime max: 35°C)
+- ✅ Power-on hours: 487 (~0.06 years — essentially new)
+- ✅ Current temperature: 20°C (lifetime max: 35°C)
 - ✅ Reallocated sectors: 0
 - ✅ Pending sectors: 0
 - ✅ Uncorrectable errors: 0
 - ✅ SMART error log: No errors logged
 - ✅ Extended self-test: Completed without error (at 484 hours)
-- ⏳ Conveyance self-test: not yet run
+- ✅ Conveyance self-test: Completed without error (at 487 hours)
 
 **Notable attributes:**
 - ⚠️ `UDMA_CRC_Error_Count`: 42 — non-zero, indicating interface errors at some point (bad cable, loose connector, or hot-plug event). Not a drive fault, but worth checking the SATA cable/port before putting into service.
 - ⚠️ `High_Fly_Writes`: 9 — minor, normalized value 91 is well above threshold (0); monitor but not a concern.
 - ⚠️ `Command_Timeout`: 4 — a few commands timed out historically, likely related to the same interface events as the CRC errors.
-- ✅ `Raw_Read_Error_Rate` raw value 23,226,680 — normal Seagate encoding; normalized 109 is healthy.
-- ✅ `Seek_Error_Rate` raw value 410,206 — low and clean; normalized 100.
+- ✅ `Raw_Read_Error_Rate` raw value 55,436,976 — normal Seagate encoding; normalized 113 is healthy.
+- ✅ `Seek_Error_Rate` raw value 467,072 — low and clean; normalized 100.
 - ✅ SCT Error Recovery Control: Read/Write timeout set to 7.0s — correctly configured for RAID use.
 
 **Note:** This is a Seagate IronWolf NAS drive (5900 rpm), purpose-built for NAS/RAID use. Has TLER (via SCT ERC) and is rated for 24/7 multi-drive operation.
 
-**Verdict:** Awaiting extended self-test completion and conveyance test. Check/replace the SATA cable before use given the CRC error count. All other indicators clean. Run badblocks after self-tests complete.
+**Verdict:** Conveyance test passed. Check/replace the SATA cable before use given the CRC error count. All other indicators clean. Run badblocks before putting into service.
 
 ### ZFL0TF34 — Seagate Barracuda ST2000DM008-2FR102
 
@@ -335,4 +335,117 @@ Drive has ~36,600 power-on hours (~4.2 years of active use at time of testing). 
 **Note:** Desktop Barracuda (7200 rpm), not NAS-rated. No SCT ERC / TLER support. The very high `Load_Cycle_Count` suggests it lived in a desktop with aggressive APM head parking — common in systems using Linux default APM settings. The heads themselves show 36,437 flying hours consistent with the power-on time, so actual spinning time is normal.
 
 **Verdict:** Clean SMART history despite heavy head park usage. Extended and conveyance tests both passed. Run badblocks before putting into service.
+
+### 5YD5PQE7 — Seagate Barracuda Green ST2000DL003-9VT166
+
+**Serial number decode — `5YD5PQE7`:**
+| Part | Meaning |
+|---|---|
+| `5` | Year code (Seagate fiscal year encoding) |
+| `YD` | Week code (alphanumeric fiscal week) |
+| `5PQE7` | Unit sequence number |
+
+Drive has ~6,393 power-on hours (~0.7 years of active use). The Barracuda Green line was discontinued; this is an older low-power desktop drive.
+
+⚠️ **Overall: CAUTION — serious interface error history, extended self-test in progress**
+
+- ✅ SMART health: PASSED
+- ⏳ Bad blocks: not yet run
+- ✅ Power-on hours: 6,393 (~0.7 years)
+- ✅ Current temperature: 23°C (lifetime max: 55°C)
+- ✅ Reallocated sectors: 0
+- ✅ Pending sectors: 0
+- ✅ Uncorrectable errors: 0
+- ✅ SMART error log: No errors logged
+- ⏳ Extended self-test: In progress at time of capture (90% remaining at 6,393 hours)
+- ⏳ Conveyance self-test: not yet run
+
+**Notable attributes:**
+- ❌ `UDMA_CRC_Error_Count`: 104,030 — extremely high. This is an order of magnitude beyond what is seen on other drives here. Indicates severe and sustained interface problems in its prior life — likely a bad cable, enclosure, or controller. Not a drive media fault, but this history demands a cable/port swap and re-check before trusting the drive.
+- ⚠️ `Runtime_Bad_Block`: 1 — one runtime bad block has been logged by the drive firmware. Monitor; may be benign, but combined with the CRC history warrants caution.
+- ⚠️ `Command_Timeout`: 3 — consistent with the CRC error history (interface stalls leading to command timeouts).
+- ⚠️ `Airflow_Temperature_Cel` worst: 044, threshold: 045 — the worst recorded airflow temperature came within 1 point of the SMART threshold. The drive has operated near its thermal limit at some point in its history.
+- ✅ `Raw_Read_Error_Rate` raw value 15,588,384 — normal Seagate encoding; normalized 108 is healthy.
+- ✅ `Seek_Error_Rate` raw value 4,322,273,481 — large raw value typical of Seagate; normalized 074 is above threshold (030).
+
+**Note:** Seagate Barracuda Green (5900 rpm), not NAS-rated. No TLER/SCT ERC support. APM is unavailable on this model. Sector sizes are 512 bytes logical / 4096 bytes physical (Advanced Format).
+
+**Verdict:** The 104,030 CRC error count is a serious red flag for the interface environment this drive lived in. Replace the SATA cable and port, then re-run smartctl to confirm the count is not growing. If the extended self-test completes clean and CRC count is stable, run conveyance then badblocks before considering for use.
+
+### 5YD5VWL1 — Seagate Barracuda Green ST2000DL003-9VT166
+
+**Serial number decode — `5YD5VWL1`:**
+| Part | Meaning |
+|---|---|
+| `5` | Year code (Seagate fiscal year encoding) |
+| `YD` | Week code (alphanumeric fiscal week) |
+| `5VWL1` | Unit sequence number |
+
+Same model family as 5YD5PQE7. Drive has ~50,144 power-on hours (~5.7 years of active use). The much higher power-on hours relative to its twin suggests a very different use history.
+
+⚠️ **Overall: CAUTION — confirmed media errors**
+
+- ✅ SMART health: PASSED (marginal attributes flagged)
+- ⏳ Bad blocks: not yet run
+- ✅ Power-on hours: 50,144 (~5.7 years)
+- ✅ Current temperature: 23°C (lifetime max: 40°C)
+- ✅ Reallocated sectors: 0
+- ✅ Pending sectors: 0
+- ⚠️ Uncorrectable errors: 2 (`Reported_Uncorrect` = 2)
+- ❌ **SMART error log: 15 UNC (Uncorrectable) errors recorded**
+- ⏳ Extended self-test: In progress at time of capture (90% remaining at 50,144 hours)
+- ⏳ Conveyance self-test: not yet run
+
+**Error log summary:**
+All 15 logged errors are `UNC` (Uncorrectable Read) errors, occurring at disk power-on lifetime 434 hours (very early in the drive's life), clustered tightly around a single LBA region:
+- ❌ LBA `0x5f42689c`–`0x5f42689f` (~1.598 billion, ~818 GB into the disk) — 4 distinct physical sectors repeatedly failing across multiple retry attempts.
+
+The errors occurred during a surface scan (`READ VERIFY SECTOR(S) EXT` commands), and the pattern of write-then-verify suggests a badblocks-style tool was running. The drive firmware never reallocated these sectors (Reallocated_Sector_Ct = 0), meaning the bad area persists in the sector map.
+
+**Notable attributes:**
+- ⚠️ `Start_Stop_Count`: 31,268 / `Load_Cycle_Count`: 31,269 — very high and nearly equal, indicating this drive was parked and unparked (or power-cycled) an extraordinary number of times, likely from aggressive APM head parking in a prior desktop system.
+- ⚠️ `Seek_Error_Rate` normalized: 069, worst: 060 (threshold 030) — degraded but above threshold. The large raw value (60,269,278,047) is unusually high even by Seagate encoding standards; worth watching.
+- ✅ `UDMA_CRC_Error_Count`: 0 — clean interface history.
+- ✅ `Raw_Read_Error_Rate` normalized 114, healthy.
+
+**Note:** Seagate Barracuda Green (5900 rpm), not NAS-rated. No TLER/SCT ERC support. Advanced Format (512 logical / 4096 physical). Same caveats as 5YD5PQE7 regarding desktop-only suitability.
+
+**Verdict:** This drive has confirmed unreadable sectors at ~818 GB into the disk, logged at 434 hours of age. The drive has never remapped them. **Do not use as a sole copy of data.** In a redundant array it can contribute, but it should be treated as a degraded member. Consider replacing when possible. Wait for the extended self-test to complete before deciding on next steps — it may surface additional errors or confirm the problem is localized.
+
+### Z1E9K96R — Seagate Barracuda 7200.14 ST2000DM001-1CH164
+
+**Serial number decode — `Z1E9K96R`:**
+| Part | Meaning |
+|---|---|
+| `Z` | Factory: Zhongshan, China |
+| `1` | Year code (Seagate fiscal year encoding) |
+| `E9` | Week code (alphanumeric fiscal week) |
+| `K96R` | Unit sequence number |
+
+Drive has ~5,157 power-on hours (~0.6 years of active use). The Barracuda 7200.14 is a desktop-class drive.
+
+⚠️ **Overall: CAUTION — severe overheating history**
+
+- ✅ SMART health: PASSED (marginal attributes flagged)
+- ⏳ Bad blocks: not yet run
+- ✅ Power-on hours: 5,157 (~0.6 years)
+- ✅ Current temperature: 24°C (lifetime max: 82°C)
+- ✅ Reallocated sectors: 0
+- ✅ Pending sectors: 0
+- ✅ Uncorrectable errors: 0
+- ✅ SMART error log: No errors logged
+- ⏳ Extended self-test: In progress at time of capture (90% remaining at 5,157 hours)
+- ⏳ Conveyance self-test: not yet run
+
+**Notable attributes:**
+- ❌ `Airflow_Temperature_Cel` worst value: 018, threshold: 045 — the worst normalized value (018) is **below** the failure threshold (045), meaning this attribute has historically been in a PAST FAIL state. The lifetime max temperature of **82°C** confirms the drive experienced extreme overheating at some point. Seagate's max recommended operating temp for this model is 60°C; 82°C is 22°C beyond that limit. Thermal damage to heads and platters is a real risk at these temperatures.
+- ⚠️ `Runtime_Bad_Block`: 1 — one runtime bad block logged; may be a consequence of the thermal event.
+- ✅ `Load_Cycle_Count`: 12,905 — moderate; consistent with some head parking but not extreme.
+- ✅ `UDMA_CRC_Error_Count`: 0 — clean interface history.
+- ✅ `Raw_Read_Error_Rate` raw value 227,729,008 — normal Seagate encoding; normalized 119 is healthy.
+- ✅ `Seek_Error_Rate` raw value 10,715,533 — low; normalized 070 is above threshold (030).
+
+**Note:** Desktop Barracuda (7200 rpm), not NAS-rated. No SCT ERC / TLER support. The `Wt Cache Reorder` feature is listed as unavailable on this model.
+
+**Verdict:** The 82°C lifetime maximum temperature is a serious concern — this drive was cooked at some point. Current media metrics are clean (no reallocated sectors, no error log), but thermal damage can be latent. Run the extended self-test to completion and then badblocks before making any decision about using this drive. It should be treated as high-risk until those tests pass clean. Do not use in a critical RAID position without monitoring temperature closely.
 

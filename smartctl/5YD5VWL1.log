@@ -1,0 +1,418 @@
+[sudo] password for robert: 
+smartctl 6.6 2016-05-31 r4324 [x86_64-linux-4.15.0-213-generic] (local build)
+Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Family:     Seagate Barracuda Green (AF)
+Device Model:     ST2000DL003-9VT166
+Serial Number:    5YD5VWL1
+LU WWN Device Id: 5 000c50 04411fd0c
+Firmware Version: CC3C
+User Capacity:    2,000,398,934,016 bytes [2.00 TB]
+Sector Sizes:     512 bytes logical, 4096 bytes physical
+Rotation Rate:    5900 rpm
+Device is:        In smartctl database [for details use: -P show]
+ATA Version is:   ATA8-ACS T13/1699-D revision 4
+SATA Version is:  SATA 3.0, 6.0 Gb/s (current: 6.0 Gb/s)
+Local Time is:    Fri May 29 15:34:34 2026 NZST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+AAM feature is:   Disabled
+APM feature is:   Unavailable
+Rd look-ahead is: Enabled
+Write cache is:   Enabled
+ATA Security is:  Disabled, frozen [SEC2]
+Wt Cache Reorder: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+General SMART Values:
+Offline data collection status:  (0x82)	Offline data collection activity
+					was completed without error.
+					Auto Offline Data Collection: Enabled.
+Self-test execution status:      ( 249)	Self-test routine in progress...
+					90% of test remaining.
+Total time to complete Offline 
+data collection: 		(  612) seconds.
+Offline data collection
+capabilities: 			 (0x7b) SMART execute Offline immediate.
+					Auto Offline data collection on/off support.
+					Suspend Offline collection upon new
+					command.
+					Offline surface scan supported.
+					Self-test supported.
+					Conveyance Self-test supported.
+					Selective Self-test supported.
+SMART capabilities:            (0x0003)	Saves SMART data before entering
+					power-saving mode.
+					Supports SMART auto save timer.
+Error logging capability:        (0x01)	Error logging supported.
+					General Purpose Logging supported.
+Short self-test routine 
+recommended polling time: 	 (   1) minutes.
+Extended self-test routine
+recommended polling time: 	 ( 333) minutes.
+Conveyance self-test routine
+recommended polling time: 	 (   2) minutes.
+SCT capabilities: 	       (0x30b7)	SCT Status supported.
+					SCT Feature Control supported.
+					SCT Data Table supported.
+
+SMART Attributes Data Structure revision number: 10
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAGS    VALUE WORST THRESH FAIL RAW_VALUE
+  1 Raw_Read_Error_Rate     POSR--   114   099   006    -    83129136
+  3 Spin_Up_Time            PO----   093   083   000    -    0
+  4 Start_Stop_Count        -O--CK   070   070   020    -    31268
+  5 Reallocated_Sector_Ct   PO--CK   100   100   036    -    0
+  7 Seek_Error_Rate         POSR--   069   060   030    -    60269278047
+  9 Power_On_Hours          -O--CK   043   011   000    -    50144
+ 10 Spin_Retry_Count        PO--C-   100   100   097    -    0
+ 12 Power_Cycle_Count       -O--CK   100   100   020    -    122
+183 Runtime_Bad_Block       -O--CK   100   100   000    -    0
+184 End-to-End_Error        -O--CK   100   100   099    -    0
+187 Reported_Uncorrect      -O--CK   098   098   000    -    2
+188 Command_Timeout         -O--CK   100   100   000    -    0
+189 High_Fly_Writes         -O-RCK   100   100   000    -    0
+190 Airflow_Temperature_Cel -O---K   077   059   045    -    23 (Min/Max 17/23)
+191 G-Sense_Error_Rate      -O--CK   100   100   000    -    0
+192 Power-Off_Retract_Count -O--CK   100   100   000    -    67
+193 Load_Cycle_Count        -O--CK   085   085   000    -    31269
+194 Temperature_Celsius     -O---K   023   041   000    -    23 (0 14 0 0 0)
+195 Hardware_ECC_Recovered  -O-RC-   026   003   000    -    83129136
+197 Current_Pending_Sector  -O--C-   100   100   000    -    0
+198 Offline_Uncorrectable   ----C-   100   100   000    -    0
+199 UDMA_CRC_Error_Count    -OSRCK   200   200   000    -    0
+240 Head_Flying_Hours       ------   100   253   000    -    52804 (77 238 0)
+241 Total_LBAs_Written      ------   100   253   000    -    3780893837
+242 Total_LBAs_Read         ------   100   253   000    -    4158924018
+                            ||||||_ K auto-keep
+                            |||||__ C event count
+                            ||||___ R error rate
+                            |||____ S speed/performance
+                            ||_____ O updated online
+                            |______ P prefailure warning
+
+General Purpose Log Directory Version 1
+SMART           Log Directory Version 1 [multi-sector log support]
+Address    Access  R/W   Size  Description
+0x00       GPL,SL  R/O      1  Log Directory
+0x01           SL  R/O      1  Summary SMART error log
+0x02           SL  R/O      5  Comprehensive SMART error log
+0x03       GPL     R/O      5  Ext. Comprehensive SMART error log
+0x06           SL  R/O      1  SMART self-test log
+0x07       GPL     R/O      1  Extended self-test log
+0x09           SL  R/W      1  Selective self-test log
+0x10       GPL     R/O      1  SATA NCQ Queued Error log
+0x11       GPL     R/O      1  SATA Phy Event Counters log
+0x21       GPL     R/O      1  Write stream error log
+0x22       GPL     R/O      1  Read stream error log
+0x80-0x9f  GPL,SL  R/W     16  Host vendor specific log
+0xa1       GPL,SL  VS      20  Device vendor specific log
+0xa2       GPL     VS    2248  Device vendor specific log
+0xa8       GPL,SL  VS      20  Device vendor specific log
+0xa9       GPL,SL  VS       1  Device vendor specific log
+0xab       GPL     VS       1  Device vendor specific log
+0xb0       GPL     VS    2819  Device vendor specific log
+0xbd       GPL     VS     252  Device vendor specific log
+0xbe-0xbf  GPL     VS   65535  Device vendor specific log
+0xc0       GPL,SL  VS       1  Device vendor specific log
+0xe0       GPL,SL  R/W      1  SCT Command/Status
+0xe1       GPL,SL  R/W      1  SCT Data Transfer
+
+SMART Extended Comprehensive Error Log Version: 1 (5 sectors)
+Device Error Count: 15
+	CR     = Command Register
+	FEATR  = Features Register
+	COUNT  = Count (was: Sector Count) Register
+	LBA_48 = Upper bytes of LBA High/Mid/Low Registers ]  ATA-8
+	LH     = LBA High (was: Cylinder High) Register    ]   LBA
+	LM     = LBA Mid (was: Cylinder Low) Register      ] Register
+	LL     = LBA Low (was: Sector Number) Register     ]
+	DV     = Device (was: Device/Head) Register
+	DC     = Device Control Register
+	ER     = Error register
+	ST     = Status register
+Powered_Up_Time is measured from power on, and printed as
+DDd+hh:mm:SS.sss where DD=days, hh=hours, mm=minutes,
+SS=sec, and sss=millisec. It "wraps" after 49.710 days.
+
+Error 15 [14] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9f 00 00  Error: UNC at LBA = 0x5f42689f = 1598187679
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9f 40 00 18d+02:14:18.403  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9e 40 00 18d+02:14:18.187  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9e 40 00 18d+02:14:18.186  WRITE DMA EXT
+  2f 00 00 00 01 00 00 00 00 00 9a 00 00 18d+02:14:17.760  READ LOG EXT
+  42 00 00 10 00 00 00 5f 42 68 9e 40 00 18d+02:14:17.433  READ VERIFY SECTOR(S) EXT
+
+Error 14 [13] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9f 00 00  Error: UNC at LBA = 0x5f42689f = 1598187679
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9f 40 00 18d+02:14:18.403  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9e 40 00 18d+02:14:18.187  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9e 40 00 18d+02:14:18.186  WRITE DMA EXT
+  2f 00 00 00 01 00 00 00 00 00 9a 00 00 18d+02:14:17.760  READ LOG EXT
+  42 00 00 10 00 00 00 5f 42 68 9e 40 00 18d+02:14:17.433  READ VERIFY SECTOR(S) EXT
+
+Error 13 [12] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9e 00 00  Error: UNC at LBA = 0x5f42689e = 1598187678
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9e 40 00 18d+02:14:17.433  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9d 40 00 18d+02:14:17.207  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9d 40 00 18d+02:14:17.206  WRITE DMA EXT
+  2f 00 00 00 01 00 00 00 00 00 99 00 00 18d+02:14:16.770  READ LOG EXT
+  42 00 00 10 00 00 00 5f 42 68 9d 40 00 18d+02:14:16.423  READ VERIFY SECTOR(S) EXT
+
+Error 12 [11] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9e 00 00  Error: UNC at LBA = 0x5f42689e = 1598187678
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9e 40 00 18d+02:14:17.433  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9d 40 00 18d+02:14:17.207  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9d 40 00 18d+02:14:17.206  WRITE DMA EXT
+  2f 00 00 00 01 00 00 00 00 00 99 00 00 18d+02:14:16.770  READ LOG EXT
+  42 00 00 10 00 00 00 5f 42 68 9d 40 00 18d+02:14:16.423  READ VERIFY SECTOR(S) EXT
+
+Error 11 [10] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9d 00 00  Error: UNC at LBA = 0x5f42689d = 1598187677
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9d 40 00 18d+02:14:16.423  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9c 40 00 18d+02:14:16.204  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9c 40 00 18d+02:14:16.204  WRITE DMA EXT
+  ec 00 00 00 00 00 00 00 00 00 00 00 00 18d+02:14:16.083  IDENTIFY DEVICE
+  42 00 00 10 00 00 00 5f 42 68 9c 40 00 18d+02:14:15.756  READ VERIFY SECTOR(S) EXT
+
+Error 10 [9] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9d 00 00  Error: UNC at LBA = 0x5f42689d = 1598187677
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9d 40 00 18d+02:14:16.423  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9c 40 00 18d+02:14:16.204  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9c 40 00 18d+02:14:16.204  WRITE DMA EXT
+  ec 00 00 00 00 00 00 00 00 00 00 00 00 18d+02:14:16.083  IDENTIFY DEVICE
+  42 00 00 10 00 00 00 5f 42 68 9c 40 00 18d+02:14:15.756  READ VERIFY SECTOR(S) EXT
+
+Error 9 [8] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9c 00 00  Error: UNC at LBA = 0x5f42689c = 1598187676
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9c 40 00 18d+02:14:15.756  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9b 40 00 18d+02:14:15.538  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9b 40 00 18d+02:14:15.538  WRITE DMA EXT
+  ec 00 00 00 00 00 00 00 00 00 00 00 00 18d+02:14:15.406  IDENTIFY DEVICE
+  42 00 00 10 00 00 00 5f 42 68 9b 40 00 18d+02:14:15.080  READ VERIFY SECTOR(S) EXT
+
+Error 8 [7] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
+  When the command that caused the error occurred, the device was active or idle.
+
+  After command completion occurred, registers were:
+  ER -- ST COUNT  LBA_48  LH LM LL DV DC
+  -- -- -- == -- == == == -- -- -- -- --
+  40 -- 51 00 00 00 00 5f 42 68 9c 00 00  Error: UNC at LBA = 0x5f42689c = 1598187676
+
+  Commands leading to the command that caused the error were:
+  CR FEATR COUNT  LBA_48  LH LM LL DV DC  Powered_Up_Time  Command/Feature_Name
+  -- == -- == -- == == == -- -- -- -- --  ---------------  --------------------
+  42 00 00 10 00 00 00 5f 42 68 9c 40 00 18d+02:14:15.756  READ VERIFY SECTOR(S) EXT
+  42 00 00 00 01 00 00 5f 42 68 9b 40 00 18d+02:14:15.538  READ VERIFY SECTOR(S) EXT
+  35 00 00 00 01 00 00 5f 42 68 9b 40 00 18d+02:14:15.538  WRITE DMA EXT
+  ec 00 00 00 00 00 00 00 00 00 00 00 00 18d+02:14:15.406  IDENTIFY DEVICE
+  42 00 00 10 00 00 00 5f 42 68 9b 40 00 18d+02:14:15.080  READ VERIFY SECTOR(S) EXT
+
+SMART Extended Self-test Log Version: 1 (1 sectors)
+Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
+# 1  Extended offline    Self-test routine in progress 90%     50144         -
+# 2  Short offline       Completed without error       00%     50142         -
+
+SMART Selective self-test log data structure revision number 1
+ SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS
+    1        0        0  Not_testing
+    2        0        0  Not_testing
+    3        0        0  Not_testing
+    4        0        0  Not_testing
+    5        0        0  Not_testing
+Selective self-test flags (0x0):
+  After scanning selected spans, do NOT read-scan remainder of disk.
+If Selective self-test is pending on power-up, resume after 0 minute delay.
+
+SCT Status Version:                  3
+SCT Version (vendor specific):       522 (0x020a)
+SCT Support Level:                   1
+Device State:                        Active (0)
+Current Temperature:                    23 Celsius
+Power Cycle Min/Max Temperature:     17/23 Celsius
+Lifetime    Min/Max Temperature:     14/40 Celsius
+Under/Over Temperature Limit Count:   0/0
+
+SCT Temperature History Version:     2
+Temperature Sampling Period:         1 minute
+Temperature Logging Interval:        59 minutes
+Min/Max recommended Temperature:     14/55 Celsius
+Min/Max Temperature Limit:           10/60 Celsius
+Temperature History Size (Index):    128 (101)
+
+Index    Estimated Time   Temperature Celsius
+ 102    2026-05-24 10:35    36  *****************
+ ...    ..(  7 skipped).    ..  *****************
+ 110    2026-05-24 18:27    36  *****************
+ 111    2026-05-24 19:26    37  ******************
+ 112    2026-05-24 20:25    36  *****************
+ ...    ..(  2 skipped).    ..  *****************
+ 115    2026-05-24 23:22    36  *****************
+ 116    2026-05-25 00:21    35  ****************
+ ...    ..(  3 skipped).    ..  ****************
+ 120    2026-05-25 04:17    35  ****************
+ 121    2026-05-25 05:16    34  ***************
+ 122    2026-05-25 06:15    35  ****************
+ 123    2026-05-25 07:14    38  *******************
+ ...    ..(  2 skipped).    ..  *******************
+ 126    2026-05-25 10:11    38  *******************
+ 127    2026-05-25 11:10    37  ******************
+ ...    ..(  2 skipped).    ..  ******************
+   2    2026-05-25 14:07    37  ******************
+   3    2026-05-25 15:06    36  *****************
+ ...    ..(  3 skipped).    ..  *****************
+   7    2026-05-25 19:02    36  *****************
+   8    2026-05-25 20:01    37  ******************
+   9    2026-05-25 21:00    36  *****************
+ ...    ..(  5 skipped).    ..  *****************
+  15    2026-05-26 02:54    36  *****************
+  16    2026-05-26 03:53    35  ****************
+  17    2026-05-26 04:52    34  ***************
+  18    2026-05-26 05:51    34  ***************
+  19    2026-05-26 06:50    36  *****************
+  20    2026-05-26 07:49    37  ******************
+ ...    ..(  4 skipped).    ..  ******************
+  25    2026-05-26 12:44    37  ******************
+  26    2026-05-26 13:43    36  *****************
+ ...    ..(  5 skipped).    ..  *****************
+  32    2026-05-26 19:37    36  *****************
+  33    2026-05-26 20:36    35  ****************
+  34    2026-05-26 21:35    34  ***************
+  35    2026-05-26 22:34    34  ***************
+  36    2026-05-26 23:33    35  ****************
+  37    2026-05-27 00:32    35  ****************
+  38    2026-05-27 01:31     ?  -
+  39    2026-05-27 02:30    33  **************
+  40    2026-05-27 03:29     ?  -
+  41    2026-05-27 04:28    33  **************
+  42    2026-05-27 05:27     ?  -
+  43    2026-05-27 06:26    33  **************
+  44    2026-05-27 07:25     ?  -
+  45    2026-05-27 08:24    23  ****
+  46    2026-05-27 09:23    36  *****************
+  47    2026-05-27 10:22    38  *******************
+  48    2026-05-27 11:21    38  *******************
+  49    2026-05-27 12:20    39  ********************
+ ...    ..(  4 skipped).    ..  ********************
+  54    2026-05-27 17:15    39  ********************
+  55    2026-05-27 18:14    38  *******************
+ ...    ..(  3 skipped).    ..  *******************
+  59    2026-05-27 22:10    38  *******************
+  60    2026-05-27 23:09    37  ******************
+ ...    ..(  2 skipped).    ..  ******************
+  63    2026-05-28 02:06    37  ******************
+  64    2026-05-28 03:05    36  *****************
+  65    2026-05-28 04:04    36  *****************
+  66    2026-05-28 05:03     ?  -
+  67    2026-05-28 06:02    22  ***
+  68    2026-05-28 07:01     ?  -
+  69    2026-05-28 08:00    29  **********
+  70    2026-05-28 08:59     ?  -
+  71    2026-05-28 09:58    29  **********
+  72    2026-05-28 10:57     ?  -
+  73    2026-05-28 11:56    29  **********
+  74    2026-05-28 12:55    34  ***************
+  75    2026-05-28 13:54    38  *******************
+  76    2026-05-28 14:53     ?  -
+  77    2026-05-28 15:52    19  -
+  78    2026-05-28 16:51     ?  -
+  79    2026-05-28 17:50    20  *
+  80    2026-05-28 18:49    27  ********
+  81    2026-05-28 19:48    28  *********
+  82    2026-05-28 20:47    28  *********
+  83    2026-05-28 21:46    29  **********
+ ...    ..(  3 skipped).    ..  **********
+  87    2026-05-29 01:42    29  **********
+  88    2026-05-29 02:41    28  *********
+  89    2026-05-29 03:40    28  *********
+  90    2026-05-29 04:39    27  ********
+ ...    ..(  2 skipped).    ..  ********
+  93    2026-05-29 07:36    27  ********
+  94    2026-05-29 08:35     ?  -
+  95    2026-05-29 09:34    19  -
+  96    2026-05-29 10:33     ?  -
+  97    2026-05-29 11:32    19  -
+  98    2026-05-29 12:31     ?  -
+  99    2026-05-29 13:30    20  *
+ 100    2026-05-29 14:29     ?  -
+ 101    2026-05-29 15:28    17  -
+
+SCT Error Recovery Control command not supported
+
+Device Statistics (GP/SMART Log 0x04) not supported
+
+SATA Phy Event Counters (GP Log 0x11)
+ID      Size     Value  Description
+0x000a  2            3  Device-to-host register FISes sent due to a COMRESET
+0x0001  2            0  Command failed due to ICRC error
+0x0003  2            0  R_ERR response for device-to-host data FIS
+0x0004  2            0  R_ERR response for host-to-device data FIS
+0x0006  2            0  R_ERR response for device-to-host non-data FIS
+0x0007  2            0  R_ERR response for host-to-device non-data FIS
+

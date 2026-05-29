@@ -702,3 +702,174 @@ Research into each model code found in this pool — target market, key specific
 
 **Real-world experience:** One of the most widely deployed desktop drives of its era, and consequently one of the most studied. Backblaze ran large populations of ST2000DM001 drives in their storage pods and documented notably elevated failure rates. The 3 TB variant (ST3000DM001) was particularly notorious; the 2 TB model fared better but still showed meaningful failure rates at the 3–4 year mark in high-duty environments. The model has two major real-world quirks: (1) the "Rosewood" firmware revision (CC27) found on some units disables SCT ERC/TLER entirely, making those drives unsuitable for RAID without modification; (2) the default APM settings in many desktop systems caused extremely high Load_Cycle_Count accumulation over time, accelerating head wear — both Z1E46C17 and ZFL0TF34 in this pool show this pattern. Performance is strong for desktop use. Not recommended as a primary NAS drive without TLER verification.
 
+---
+
+## Linux Commands & Workarounds
+
+Known issues with the drives in this pool each have a corresponding Linux remedy. The table below maps the problem to the command, followed by persistence instructions.
+
+### Issue 1 — Excessive head parking / high Load_Cycle_Count (ST2000DL003, ST2000DM001, ST2000DM008, WD20EFRX)
+
+**Why it happens:** Linux's default APM (Advanced Power Management) setting aggressively parks drive heads after a few seconds of inactivity. This was the primary killer of Barracuda Green drives and has left ZFL0TF34 (283k LCC) and Z1E46C17 (186k LCC) in this pool in a degraded state.
+
+**Check the current APM level:**
+```bash
+sudo hdparm -B /dev/sdX
+```
+Value 1–127 = power-saving with spin-down permitted. Value 128–254 = performance mode, no spin-down. Value 255 = APM fully disabled.
+
+**Fix — disable aggressive parking:**
+```bash
+sudo hdparm -B 254 /dev/sdX    # max performance, no spin-down; use on all non-NAS drives
+sudo hdparm -B 255 /dev/sdX    # disable APM entirely (not all drives support this)
+```
+
+**Fix for WD drives with the IntelliPark idle3 timer** (WD20EFRX — the 8-second internal firmware timer is separate from OS APM):
+```bash
+# Install idle3-tools (Debian/Ubuntu)
+sudo apt install idle3-tools
+
+# Check current idle3 value (0 = disabled)
+sudo idle3ctl -g /dev/sdX
+
+# Disable the idle3 timer completely
+sudo idle3ctl -d /dev/sdX
+
+# Or set a longer timer (value 129–255 = multiples of 30s; e.g. 130 ≈ 60s)
+sudo idle3ctl -s 130 /dev/sdX
+```
+> **Important:** idle3 changes require a full power-off (not just reboot) to take effect — the drive must lose power for the new firmware setting to activate.
+
+**Make APM setting persist across reboots** — create a udev rule:
+```bash
+# /etc/udev/rules.d/69-hdparm.rules
+# Replace MODEL with the drive's model string from: udevadm info /dev/sdX | grep ID_MODEL
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000DL003*", RUN+="/usr/bin/hdparm -B 254 %N"
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000DM001*", RUN+="/usr/bin/hdparm -B 254 %N"
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000DM008*", RUN+="/usr/bin/hdparm -B 254 %N"
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="WDC_WD20EFRX*", RUN+="/usr/bin/hdparm -B 254 %N"
+```
+
+Alternatively, for `/etc/hdparm.conf` (applied by the hdparm init script on Debian-based systems):
+```
+/dev/disk/by-id/ata-ST2000DL003-... {
+    apm = 254
+}
+```
+
+---
+
+### Issue 2 — No TLER / drives dropped from RAID on long read errors (ST2000DL003, ST2000DM008, ST2000DM001 CC27 firmware)
+
+**Why it happens:** Without Time-Limited Error Recovery (TLER / SCT ERC), a drive retrying a bad sector can stall for up to 2 minutes. Most RAID controllers (including Linux md) treat this as a timeout and kick the drive from the array, causing a degraded rebuild even if the drive itself is fine.
+
+**Check if SCT ERC is supported and what it is set to:**
+```bash
+sudo smartctl -l scterc /dev/sdX
+```
+Output will show Read and Write timeout values in deciseconds, or `Disabled` / `Not supported`.
+
+**Enable TLER / set ERC timeout (7 seconds = 70 deciseconds — standard RAID value):**
+```bash
+sudo smartctl -l scterc,70,70 /dev/sdX
+```
+This sets both read and write error recovery timeout to 7.0 seconds.
+
+> **Note:** The ST2000DL003 (Barracuda Green) and ST2000DM001 with CC27 firmware **do not support SCT ERC** — the command will fail. There is no software workaround for these; the only mitigation is ensuring the md RAID timeout (below) is generous enough to absorb the drive's natural retry time.
+
+**Try the persistent flag** (supported on some drives, survives power cycle):
+```bash
+sudo smartctl -l scterc,70,70,p /dev/sdX
+```
+
+**Set the Linux md RAID device timeout to be more tolerant** (reduces the chance of md dropping a slow drive):
+```bash
+# Check current timeout (in seconds) — typically 30s default
+cat /sys/block/sdX/device/timeout
+
+# Increase to 180s to give non-TLER drives more time before md gives up
+echo 180 | sudo tee /sys/block/sdX/device/timeout
+```
+
+**Make the md timeout persist** — add to a udev rule:
+```bash
+# /etc/udev/rules.d/69-raid-timeout.rules
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000DL003*", ATTR{../timeout}="180"
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000DM001*", ATTR{../timeout}="180"
+```
+
+**Make SCT ERC persist across reboots** — using a udev rule or the mdraid-safe-timeouts project:
+```bash
+# Manual udev approach — triggers when a drive appears
+# /etc/udev/rules.d/69-scterc.rules
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000VN000*", RUN+="/usr/sbin/smartctl -l scterc,70,70 %N"
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000VN004*", RUN+="/usr/sbin/smartctl -l scterc,70,70 %N"
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="ST2000DM001*", RUN+="/usr/sbin/smartctl -l scterc,70,70 %N"
+ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_MODEL}=="WDC_WD20EFRX*", RUN+="/usr/sbin/smartctl -l scterc,70,70 %N"
+```
+
+The [mdraid-safe-timeouts](https://github.com/jonathanunderwood/mdraid-safe-timeouts) project provides a more robust version of this that triggers on md array assembly rather than individual drive appearance.
+
+---
+
+### Issue 3 — UDMA CRC errors / interface errors (Z52BBV0P, 5YD5PQE7)
+
+**Why it happens:** CRC errors are an interface-layer problem — bad cable, loose connector, or marginal port — not a drive media fault. The drive itself is fine but the data path is unreliable.
+
+**Check the current CRC error count:**
+```bash
+sudo smartctl -A /dev/sdX | grep UDMA_CRC
+```
+
+**There is no software fix** — CRC errors require a physical intervention:
+1. Replace the SATA data cable (cheap cables are a common culprit)
+2. Try a different SATA port on the motherboard or controller card
+3. Re-seat both ends of the cable firmly
+4. After swapping, monitor whether the count grows:
+
+```bash
+# Run twice, a day apart, and compare the raw value
+sudo smartctl -A /dev/sdX | grep UDMA_CRC
+```
+
+If the count stops growing after the cable swap, the drive is fine. If it keeps climbing, suspect the controller or enclosure backplane.
+
+---
+
+### Issue 4 — Verify SCT ERC is configured after assembling the array
+
+It is easy to forget to set ERC after an array is assembled or a drive is replaced. A one-liner to check all data drives at once:
+
+```bash
+for dev in /dev/sd{a..l}; do
+    echo -n "$dev: "
+    sudo smartctl -l scterc "$dev" 2>/dev/null | grep -E "Read|Write|supported" || echo "not supported / error"
+done
+```
+
+And to set 7s ERC on all drives that support it in one pass:
+```bash
+for dev in /dev/sd{a..l}; do
+    sudo smartctl -l scterc,70,70 "$dev" 2>/dev/null
+done
+```
+
+---
+
+### Quick reference — which fix applies to which drive
+
+| Serial | Model | APM fix | idle3 fix | SCT ERC settable | SCT ERC native |
+|---|---|---|---|---|---|
+| W1H31BLJ | ST2000VN000 | Not needed (NAS drive) | No | Yes | Yes |
+| WD-WCC4M1RYFSH9 | WD20EFRX | `hdparm -B 254` | `idle3ctl -d` | Yes | Yes |
+| WD-WCC4M7YANCD5 | WD20EFRX | `hdparm -B 254` | `idle3ctl -d` | Yes | Yes |
+| W520VJFQ | ST2000VN000 | Not needed (NAS drive) | No | Yes | Yes |
+| WFL3ZBBC | ST2000DM008 | `hdparm -B 254` | No | Yes | No |
+| Z52BBV0P | ST2000VN004 | Not needed (NAS drive) | No | Yes | Yes — already set |
+| ZFL0TF34 | ST2000DM008 | `hdparm -B 254` | No | Yes | No |
+| 5YD5PQE7 | ST2000DL003 | `hdparm -B 254` | No | **Not supported** | No — increase md timeout instead |
+| 5YD5VWL1 | ST2000DL003 | `hdparm -B 254` | No | **Not supported** | No — increase md timeout instead |
+| Z1E46C17 | ST2000DM001 (HP33) | `hdparm -B 254` | No | Yes (HP33 supports it) | No |
+| Z1E7BC0E | ST2000DM001 (CC27) | `hdparm -B 254` | No | **Not supported (CC27)** | No — increase md timeout instead |
+| Z1E9K96R | ST2000DM001 (CC27) | `hdparm -B 254` | No | **Not supported (CC27)** | No — increase md timeout instead |
+

@@ -571,3 +571,134 @@ Drive has ~5,157 power-on hours (~0.6 years of active use). The Barracuda 7200.1
 
 **Verdict:** The 82°C lifetime maximum temperature is a serious concern — this drive was cooked at some point. Current media metrics are clean (no reallocated sectors, no error log), and the extended self-test completed without error. Thermal damage can still be latent. Run conveyance then badblocks before making any decision about using this drive. It should be treated as high-risk until those tests pass clean. Do not use in a critical RAID position without monitoring temperature closely.
 
+## Drive Information
+
+Research into each model code found in this pool — target market, key specifications, and real-world customer experience.
+
+---
+
+### Seagate NAS HDD — ST2000VN000
+
+**Target market:** Small-to-medium NAS systems, 1–8 bay enclosures, up to 20 users. Positioned as Seagate's dedicated NAS line before IronWolf replaced it.
+
+| Spec | Value |
+|---|---|
+| RPM | 5900 |
+| Cache | 64 MB |
+| Interface | SATA 6 Gb/s |
+| Max sustained transfer | 180 MB/s |
+| MTBF | 1,000,000 hours |
+| Workload rating | 180 TB/year |
+| Power-on hours rated | 8,760 hr/yr (24/7) |
+| Warranty | 3 years |
+| TLER / ERC | Yes (NASWorks Error Recovery Control) |
+| Advanced Format | No (512n) |
+
+**Real-world experience:** Generally well regarded as a purpose-built NAS drive from its era. The NASWorks feature set (TLER, vibration compensation, power management tuning) made it genuinely better suited to multi-drive enclosures than contemporary desktop drives. No widespread catastrophic failure patterns reported. Common failure mode in data recovery cases is burnt PCB, consistent with age rather than a design defect. Largely superseded by IronWolf but remains a solid performer for the use case it was designed for.
+
+---
+
+### WD Red — WD20EFRX
+
+**Target market:** Home and SOHO NAS, 1–8 bay systems. WD's first drive line marketed specifically at NAS users, launched 2012.
+
+| Spec | Value |
+|---|---|
+| RPM | 5400 (marketed as "IntelliPower") |
+| Cache | 64 MB |
+| Interface | SATA 6 Gb/s |
+| Max sustained transfer | ~112 MB/s |
+| MTBF | 1,000,000 hours |
+| Load/unload cycles rated | 600,000 |
+| Non-recoverable read errors | <1 per 10^14 bits |
+| Warranty | 3 years |
+| Recording technology | **CMR** (conventional) |
+| TLER | Yes |
+
+**Real-world experience:** The WD20EFRX specifically uses **CMR** — this is important context given WD's later scandal. Starting around 2019–2020, WD quietly switched some WD Red SKUs (particularly 2–6 TB) to SMR (shingled magnetic recording) without disclosure. SMR drives caused severe RAID rebuild failures, array drops under ZFS/TrueNAS, and data loss. WD faced a class-action lawsuit settled for $2.7 million. The **WD20EFRX is the older CMR variant** and does not have the SMR write-performance degradation problem. However, Backblaze reported an 8.2% annualised failure rate for this model in their 2016 data — notably high, though this reflects data-centre duty cycles and may not map directly to home NAS use. The very high Start/Stop count on the units in this pool (76,000+) is consistent with this model being used in duty cycles it was not optimally designed for.
+
+---
+
+### Seagate Barracuda — ST2000DM008
+
+**Target market:** Desktop PC, home server, entry-level direct-attached storage (DAS). Not NAS-rated. Seagate's mainstream desktop drive line, introduced 2017.
+
+| Spec | Value |
+|---|---|
+| RPM | 7200 |
+| Cache | 256 MB |
+| Interface | SATA 6 Gb/s |
+| Max sustained transfer | ~190 MB/s |
+| MTBF | Not published (desktop class) |
+| Workload rating | 55 TB/year |
+| Warranty | 2 years |
+| TLER / ERC | No |
+| Advanced Format | 512e |
+
+**Real-world experience:** Broadly regarded as a capable, fast desktop drive. The 7200 RPM spindle and 256 MB cache give it noticeably better sequential performance than the NAS-oriented 5900 RPM drives in this pool. The lack of TLER is the key liability in a RAID context — under a long read error, the drive will retry for up to 2 minutes before reporting the error, which causes most RAID controllers to drop it from the array. The 55 TB/year workload limit is also well below the 24/7 NAS-rated drives. Fine for low-duty-cycle or desktop use; workable in RAID if TLER is not strictly required by the controller. No major widespread failure pattern specific to this firmware revision.
+
+---
+
+### Seagate IronWolf — ST2000VN004
+
+**Target market:** NAS enclosures, 1–8 bay, home through small business. The IronWolf line replaced the original Seagate NAS HDD line and is Seagate's current mainstream NAS product.
+
+| Spec | Value |
+|---|---|
+| RPM | 5900 |
+| Cache | 64 MB |
+| Interface | SATA 6 Gb/s |
+| Max sustained transfer | 180 MB/s |
+| MTBF | 1,000,000 hours |
+| Workload rating | 180 TB/year |
+| Power-on hours rated | 8,760 hr/yr (24/7) |
+| Load/unload cycles rated | 600,000 |
+| Non-recoverable read errors | <1 per 10^14 bits |
+| Warranty | 3 years |
+| TLER / ERC | Yes (SCT ERC, confirmed on Z52BBV0P) |
+| Recording technology | CMR |
+
+**Real-world experience:** Consistently well reviewed as a reliable NAS drive. Designed specifically for RAID environments with rotational vibration (RV) sensors and TLER configured out of the box. User reviews across large sample sets (4.6 stars from ~6,000 Amazon reviews) indicate high satisfaction with reliability in sustained NAS workloads. Seagate includes three years of complimentary Rescue Data Recovery Services with IronWolf drives (95% success rate claimed). No widespread failure patterns documented. Considered best-in-class for this use case in the sub-4 TB range.
+
+---
+
+### Seagate Barracuda Green — ST2000DL003
+
+**Target market:** Desktop PC, consumer storage, power-conscious desktop builds. Discontinued — the Green line was folded into the standard Barracuda lineup. Introduced around 2010.
+
+| Spec | Value |
+|---|---|
+| RPM | 5900 |
+| Cache | 64 MB |
+| Interface | SATA 6 Gb/s |
+| Max sustained transfer | ~144 MB/s |
+| AFR | 0.34% (Seagate rated) |
+| Average seek (read) | 12 ms |
+| Average latency | 4.16 ms |
+| Warranty | 1 year (OEM) / 2 years (retail) |
+| TLER / ERC | No |
+| Advanced Format | Yes (512 logical / 4096 physical) |
+
+**Real-world experience:** Mixed-to-poor reputation. The "Green" branding indicated aggressive power-saving behaviour, which caused two significant problems in practice: (1) the drives would spin down and park heads very frequently under desktop power management defaults (especially on Linux), causing extremely high Load_Cycle_Count values and premature head wear — exactly what is seen on the units in this pool; and (2) in RAID enclosures, the spin-down behaviour caused RAID controllers to interpret the drive as having disconnected, kicking it out of the array. Multiple user reports describe drives dropping from arrays under load. An additional concern: data recovery shops report that the burnt PCB failure mode is disproportionately common on these drives. Seagate discontinued the Green line entirely. These drives are not suited to NAS or RAID use.
+
+---
+
+### Seagate Barracuda 7200.14 — ST2000DM001
+
+**Target market:** Desktop PC, home storage, budget workstation. The "7200.14" designation refers to the 14th generation of the Barracuda line. Introduced 2011.
+
+| Spec | Value |
+|---|---|
+| RPM | 7200 |
+| Cache | 64 MB |
+| Interface | SATA 6 Gb/s |
+| Max sustained transfer | ~156 MB/s |
+| MTBF | Not published (desktop class) |
+| Workload rating | 55 TB/year |
+| Average seek (read) | <8.5 ms |
+| Warranty | 2 years |
+| TLER / ERC | Firmware-dependent — HP33 supports SCT ERC; CC27 does not |
+| Advanced Format | Yes (512e) |
+
+**Real-world experience:** One of the most widely deployed desktop drives of its era, and consequently one of the most studied. Backblaze ran large populations of ST2000DM001 drives in their storage pods and documented notably elevated failure rates. The 3 TB variant (ST3000DM001) was particularly notorious; the 2 TB model fared better but still showed meaningful failure rates at the 3–4 year mark in high-duty environments. The model has two major real-world quirks: (1) the "Rosewood" firmware revision (CC27) found on some units disables SCT ERC/TLER entirely, making those drives unsuitable for RAID without modification; (2) the default APM settings in many desktop systems caused extremely high Load_Cycle_Count accumulation over time, accelerating head wear — both Z1E46C17 and ZFL0TF34 in this pool show this pattern. Performance is strong for desktop use. Not recommended as a primary NAS drive without TLER verification.
+

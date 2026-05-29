@@ -33,22 +33,24 @@ The purpose is to research how to setup/run my network attached storage system.
 The first two mirrors will be placed into an LVM volume group to give 4TB of useable
  space, a more flexible kind of RAID 10.
 
-| Mirror | Count | Drives | Purpose |
-|---|---|---|---|
-| /dev/md0 | 3-4 | W1H31BLJ, WD-WCC4M7YANCD5, <TBD>, <TBD> | LVM PV1 (Data) |
-| /dev/md1 | 3-4 | W520VJFQ, WD-WCC4M1RYFSH9, <TBD>, <TBD> | LVM PV2 (Data) |
-| /dev/md3 | 4   | <TBD>, <TBD>, <TBD>, <TBD> | OS and restic snapshots |
+| Mirror | Count | Type | Drives | Purpose |
+|---|---|---|---|---|
+| /dev/md0 | 4 | RAID1 | W1H31BLJ, WD-WCC4M7YANCD5, Z52BBV0P, WD-WCC4M1RYFSH9 | LVM PV1 (Data) |
+| /dev/md1 | 4 | RAID1 | W520VJFQ, WFL3ZBBC, Z1E7BC0E, 5YD5VWL1 | LVM PV2 (Data) |
+| /dev/md3 | 4 | RAID1 | ZFL0TF34, Z1E46C17, Z1E9K96R, 5YD5PQE7 | OS and restic snapshots |
 
 | PVs | VGs | LVs | Size |
 |---|---|---|---|
 | /dev/md0 | raid10 | data | 4T |
-| /dev/md1 | | | |
+| /dev/md1 |  |  | |
 | /dev/md3 | system | root | 80G |
 | | | swap | 20G |
 | | | bkp | 1.8T |
 | | | boot | 1G |
 
 > Note: I didn't want to do real RAID10 cos you can't grow or shrink the mirrors
+
+> **Important:** LVM stripes across md0 and md1 (RAID0 at the VG level). Each mirror individually tolerates up to 3 drive failures, but if an entire mirror is lost, **all data in the VG is lost** — there is no VG-level redundancy. This is the key tradeoff vs. real RAID10. Both data mirrors must be kept equally healthy; see the Optimum RAID layout section for how CAUTION drives are distributed to reflect this.
 
 #### Option 2: big redundo
 
@@ -94,6 +96,29 @@ These are the drives I have available (with some more on the way):
 | 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E7BC0E | :white_check_mark: | :hourglass: | — | :white_check_mark: | ~3.0 yrs | PENDING |
 
 I have about 9x 1TB drives but probably won't use them.
+
+## Optimum RAID layout
+
+The disks must be assigned to mirrors in a way that ensures we spread out potential failures. This is
+informed by the health data and tests surfaced by this document.  Assuming RAID plan 1, the optimum
+pool layout is as follows.
+
+| RAID1 | Serial | Reasoning |
+|---|---|---|
+| /dev/md0 | W1H31BLJ | Fully tested, 0 bad blocks, clean error log — strong anchor for this mirror |
+| | WD-WCC4M7YANCD5 | Fully tested, 0 bad blocks, clean log — strong anchor; split from its CAUTION twin |
+| | Z52BBV0P | IronWolf NAS drive (purpose-built RAID), essentially new, all tests clean; check SATA cable first |
+| | WD-WCC4M1RYFSH9 | CAUTION: 16 bad blocks + 33 UNC SMART errors; 3 healthy drives carry it; split from its healthy twin WD-WCC4M7YANCD5 |
+| /dev/md1 | W520VJFQ | Fully tested, 0 bad blocks, clean log — strong anchor; split from twin W1H31BLJ |
+| | WFL3ZBBC | All SMART tests clean, nearly new (0.3 yrs); badblocks pending — complete before activating |
+| | Z1E7BC0E | Cleanest of the Z1E batch; conveyance passed, extended test pending; no TLER (CC27 firmware) |
+| | 5YD5VWL1 | CAUTION: confirmed UNC errors at ~818 GB; 3 healthy drives carry it; one CAUTION per data mirror keeps both mirrors equally reliable |
+| /dev/md3 | ZFL0TF34 | Extended + conveyance tests clean; badblocks pending — complete before activating |
+| | Z1E46C17 | High Load_Cycle_Count (185k), extended test still running; weakest non-CAUTION drive — suits the lower-stakes OS/backup mirror |
+| | Z1E9K96R | CAUTION: 82°C thermal history, 1 runtime bad block; conveyance + badblocks still needed; md3 failure loses only OS/backup |
+| | 5YD5PQE7 | CAUTION: 104,030 CRC errors (interface, not media); conveyance + badblocks still needed; replace SATA cable first |
+
+**md0 and md1 are striped at the LVM level (poor-man's RAID10)** — if either mirror fails completely, all data is lost. Both mirrors therefore carry exactly one CAUTION drive, backed by three healthy members each, keeping their failure probability equal and low. The two worst CAUTION drives go to **md3** (OS + restic), where a total mirror failure is recoverable from backups. Before assembling, complete badblocks on WFL3ZBBC, Z1E7BC0E, ZFL0TF34, and Z1E46C17, and swap SATA cables on Z52BBV0P and 5YD5PQE7.
 
 ## Drive Status Reports
 

@@ -1,0 +1,292 @@
+[sudo] password for robert: 
+smartctl 6.6 2016-05-31 r4324 [x86_64-linux-4.15.0-213-generic] (local build)
+Copyright (C) 2002-16, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Family:     Seagate Barracuda 7200.14 (AF)
+Device Model:     ST2000DM001-1CH164
+Serial Number:    Z1E46C17
+LU WWN Device Id: 5 000c50 050954b26
+Firmware Version: HP33
+User Capacity:    2,000,398,934,016 bytes [2.00 TB]
+Sector Sizes:     512 bytes logical, 4096 bytes physical
+Rotation Rate:    7200 rpm
+Form Factor:      3.5 inches
+Device is:        In smartctl database [for details use: -P show]
+ATA Version is:   ACS-2, ATA8-ACS T13/1699-D revision 4
+SATA Version is:  SATA 3.0, 6.0 Gb/s (current: 6.0 Gb/s)
+Local Time is:    Fri May 29 22:23:42 2026 NZST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+AAM feature is:   Unavailable
+APM level is:     254 (maximum performance)
+Rd look-ahead is: Enabled
+Write cache is:   Enabled
+ATA Security is:  Disabled, frozen [SEC2]
+Wt Cache Reorder: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+General SMART Values:
+Offline data collection status:  (0x82)	Offline data collection activity
+					was completed without error.
+					Auto Offline Data Collection: Enabled.
+Self-test execution status:      ( 248)	Self-test routine in progress...
+					80% of test remaining.
+Total time to complete Offline 
+data collection: 		(  592) seconds.
+Offline data collection
+capabilities: 			 (0x5b) SMART execute Offline immediate.
+					Auto Offline data collection on/off support.
+					Suspend Offline collection upon new
+					command.
+					Offline surface scan supported.
+					Self-test supported.
+					No Conveyance Self-test supported.
+					Selective Self-test supported.
+SMART capabilities:            (0x0003)	Saves SMART data before entering
+					power-saving mode.
+					Supports SMART auto save timer.
+Error logging capability:        (0x01)	Error logging supported.
+					General Purpose Logging supported.
+Short self-test routine 
+recommended polling time: 	 (   2) minutes.
+Extended self-test routine
+recommended polling time: 	 ( 236) minutes.
+SCT capabilities: 	       (0x303b)	SCT Status supported.
+					SCT Error Recovery Control supported.
+					SCT Feature Control supported.
+					SCT Data Table supported.
+
+SMART Attributes Data Structure revision number: 10
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAGS    VALUE WORST THRESH FAIL RAW_VALUE
+  1 Raw_Read_Error_Rate     POSR-K   111   099   006    -    33927480
+  3 Spin_Up_Time            PO---K   096   095   000    -    0
+  4 Start_Stop_Count        -O--CK   098   098   020    -    2407
+  5 Reallocated_Sector_Ct   PO--CK   100   100   036    -    0
+  7 Seek_Error_Rate         POSR-K   078   060   030    -    8733954277
+  9 Power_On_Hours          -O--CK   085   085   000    -    13191
+ 10 Spin_Retry_Count        PO--CK   100   100   097    -    0
+ 12 Power_Cycle_Count       -O--CK   098   098   020    -    2402
+180 Unknown_HDD_Attribute   -O-R-K   100   100   000    -    1752311731
+183 Runtime_Bad_Block       -O--CK   100   100   000    -    0
+184 End-to-End_Error        PO--CK   100   100   097    -    0
+187 Reported_Uncorrect      -O--CK   100   100   000    -    0
+188 Command_Timeout         -O--CK   100   099   000    -    2 2 2
+189 High_Fly_Writes         -O-RCK   099   099   000    -    1
+190 Airflow_Temperature_Cel -O---K   068   055   045    -    32 (Min/Max 22/32)
+191 G-Sense_Error_Rate      -O--CK   100   100   000    -    0
+192 Power-Off_Retract_Count -O--CK   100   100   000    -    141
+193 Load_Cycle_Count        -O--CK   008   008   000    -    185601
+194 Temperature_Celsius     -O---K   032   045   000    -    32 (0 8 0 0 0)
+196 Reallocated_Event_Count -O--CK   100   100   036    -    0
+197 Current_Pending_Sector  -O--CK   100   100   000    -    0
+198 Offline_Uncorrectable   ----CK   100   100   000    -    0
+199 UDMA_CRC_Error_Count    -O--CK   200   200   000    -    0
+                            ||||||_ K auto-keep
+                            |||||__ C event count
+                            ||||___ R error rate
+                            |||____ S speed/performance
+                            ||_____ O updated online
+                            |______ P prefailure warning
+
+General Purpose Log Directory Version 1
+SMART           Log Directory Version 1 [multi-sector log support]
+Address    Access  R/W   Size  Description
+0x00       GPL,SL  R/O      1  Log Directory
+0x01           SL  R/O      1  Summary SMART error log
+0x02           SL  R/O      5  Comprehensive SMART error log
+0x03       GPL     R/O      5  Ext. Comprehensive SMART error log
+0x06           SL  R/O      1  SMART self-test log
+0x07       GPL     R/O      1  Extended self-test log
+0x09           SL  R/W      1  Selective self-test log
+0x10       GPL     R/O      1  SATA NCQ Queued Error log
+0x11       GPL     R/O      1  SATA Phy Event Counters log
+0x21       GPL     R/O      1  Write stream error log
+0x22       GPL     R/O      1  Read stream error log
+0x80-0x9f  GPL,SL  R/W     16  Host vendor specific log
+0xa1       GPL,SL  VS      20  Device vendor specific log
+0xa2       GPL     VS    4496  Device vendor specific log
+0xa8       GPL,SL  VS     129  Device vendor specific log
+0xa9       GPL,SL  VS       1  Device vendor specific log
+0xab       GPL     VS       1  Device vendor specific log
+0xb0       GPL     VS    5176  Device vendor specific log
+0xb6       GPL     VS    1918  Device vendor specific log
+0xbd       GPL     VS     512  Device vendor specific log
+0xbe-0xbf  GPL     VS   65535  Device vendor specific log
+0xc1       GPL,SL  VS      10  Device vendor specific log
+0xc4       GPL,SL  VS       5  Device vendor specific log
+0xe0       GPL,SL  R/W      1  SCT Command/Status
+0xe1       GPL,SL  R/W      1  SCT Data Transfer
+
+SMART Extended Comprehensive Error Log Version: 1 (5 sectors)
+No Errors Logged
+
+SMART Extended Self-test Log Version: 1 (1 sectors)
+Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
+# 1  Extended offline    Self-test routine in progress 90%     13190         -
+# 2  Short offline       Completed without error       00%     13190         -
+# 3  Extended offline    Interrupted (host reset)      90%         1         -
+
+SMART Selective self-test log data structure revision number 1
+ SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS
+    1        0        0  Not_testing
+    2        0        0  Not_testing
+    3        0        0  Not_testing
+    4        0        0  Not_testing
+    5        0        0  Not_testing
+Selective self-test flags (0x0):
+  After scanning selected spans, do NOT read-scan remainder of disk.
+If Selective self-test is pending on power-up, resume after 0 minute delay.
+
+SCT Status Version:                  3
+SCT Version (vendor specific):       522 (0x020a)
+SCT Support Level:                   1
+Device State:                        Active (0)
+Current Temperature:                    32 Celsius
+Power Cycle Min/Max Temperature:     22/32 Celsius
+Lifetime    Min/Max Temperature:      8/45 Celsius
+Under/Over Temperature Limit Count:   0/0
+
+SCT Temperature History Version:     2
+Temperature Sampling Period:         1 minute
+Temperature Logging Interval:        59 minutes
+Min/Max recommended Temperature:     14/55 Celsius
+Min/Max Temperature Limit:           10/60 Celsius
+Temperature History Size (Index):    128 (115)
+
+Index    Estimated Time   Temperature Celsius
+ 116    2026-05-24 17:28    19  -
+ 117    2026-05-24 18:27    19  -
+ 118    2026-05-24 19:26    19  -
+ 119    2026-05-24 20:25    20  *
+ 120    2026-05-24 21:24    19  -
+ 121    2026-05-24 22:23    19  -
+ 122    2026-05-24 23:22    19  -
+ 123    2026-05-25 00:21    20  *
+ 124    2026-05-25 01:20    20  *
+ 125    2026-05-25 02:19    21  **
+ 126    2026-05-25 03:18    20  *
+ 127    2026-05-25 04:17    20  *
+   0    2026-05-25 05:16    20  *
+   1    2026-05-25 06:15    19  -
+ ...    ..(  4 skipped).    ..  -
+   6    2026-05-25 11:10    19  -
+   7    2026-05-25 12:09    18  -
+   8    2026-05-25 13:08    19  -
+   9    2026-05-25 14:07    19  -
+  10    2026-05-25 15:06    18  -
+  11    2026-05-25 16:05    18  -
+  12    2026-05-25 17:04    17  -
+ ...    ..(  4 skipped).    ..  -
+  17    2026-05-25 21:59    17  -
+  18    2026-05-25 22:58    19  -
+  19    2026-05-25 23:57    19  -
+  20    2026-05-26 00:56    20  *
+  21    2026-05-26 01:55    19  -
+  22    2026-05-26 02:54    20  *
+ ...    ..(  2 skipped).    ..  *
+  25    2026-05-26 05:51    20  *
+  26    2026-05-26 06:50    19  -
+  27    2026-05-26 07:49    19  -
+  28    2026-05-26 08:48    18  -
+  29    2026-05-26 09:47    18  -
+  30    2026-05-26 10:46    18  -
+  31    2026-05-26 11:45    17  -
+  32    2026-05-26 12:44    18  -
+  33    2026-05-26 13:43    17  -
+  34    2026-05-26 14:42    16  -
+  35    2026-05-26 15:41    17  -
+  36    2026-05-26 16:40    16  -
+  37    2026-05-26 17:39    16  -
+  38    2026-05-26 18:38    17  -
+  39    2026-05-26 19:37    16  -
+  40    2026-05-26 20:36    16  -
+  41    2026-05-26 21:35    17  -
+  42    2026-05-26 22:34    18  -
+  43    2026-05-26 23:33    18  -
+  44    2026-05-27 00:32    19  -
+  45    2026-05-27 01:31    19  -
+  46    2026-05-27 02:30    20  *
+  47    2026-05-27 03:29    20  *
+  48    2026-05-27 04:28    19  -
+  49    2026-05-27 05:27     ?  -
+  50    2026-05-27 06:26    19  -
+  51    2026-05-27 07:25     ?  -
+  52    2026-05-27 08:24    20  *
+  53    2026-05-27 09:23     ?  -
+  54    2026-05-27 10:22    12  -
+  55    2026-05-27 11:21     ?  -
+  56    2026-05-27 12:20    15  -
+  57    2026-05-27 13:19     ?  -
+  58    2026-05-27 14:18    18  -
+  59    2026-05-27 15:17     ?  -
+  60    2026-05-27 16:16    21  **
+  61    2026-05-27 17:15    24  *****
+  62    2026-05-27 18:14    37  ******************
+  63    2026-05-27 19:13     ?  -
+  64    2026-05-27 20:12    27  ********
+  65    2026-05-27 21:11     ?  -
+  66    2026-05-27 22:10    28  *********
+  67    2026-05-27 23:09     ?  -
+  68    2026-05-28 00:08    34  ***************
+  69    2026-05-28 01:07    37  ******************
+  70    2026-05-28 02:06    36  *****************
+  71    2026-05-28 03:05    35  ****************
+  72    2026-05-28 04:04     ?  -
+  73    2026-05-28 05:03    28  *********
+  74    2026-05-28 06:02     ?  -
+  75    2026-05-28 07:01    27  ********
+  76    2026-05-28 08:00     ?  -
+  77    2026-05-28 08:59    30  ***********
+  78    2026-05-28 09:58     ?  -
+  79    2026-05-28 10:57    27  ********
+  80    2026-05-28 11:56     ?  -
+  81    2026-05-28 12:55    17  -
+  82    2026-05-28 13:54     ?  -
+  83    2026-05-28 14:53    16  -
+  84    2026-05-28 15:52     ?  -
+  85    2026-05-28 16:51    17  -
+  86    2026-05-28 17:50    26  *******
+  87    2026-05-28 18:49    30  ***********
+  88    2026-05-28 19:48    33  **************
+  89    2026-05-28 20:47    36  *****************
+  90    2026-05-28 21:46    36  *****************
+  91    2026-05-28 22:45    37  ******************
+ ...    ..(  4 skipped).    ..  ******************
+  96    2026-05-29 03:40    37  ******************
+  97    2026-05-29 04:39    39  ********************
+  98    2026-05-29 05:38    43  ************************
+  99    2026-05-29 06:37    44  *************************
+ 100    2026-05-29 07:36    44  *************************
+ 101    2026-05-29 08:35    43  ************************
+ 102    2026-05-29 09:34    41  **********************
+ 103    2026-05-29 10:33    39  ********************
+ 104    2026-05-29 11:32    38  *******************
+ 105    2026-05-29 12:31    37  ******************
+ ...    ..(  2 skipped).    ..  ******************
+ 108    2026-05-29 15:28    37  ******************
+ 109    2026-05-29 16:27    36  *****************
+ ...    ..(  2 skipped).    ..  *****************
+ 112    2026-05-29 19:24    36  *****************
+ 113    2026-05-29 20:23    35  ****************
+ 114    2026-05-29 21:22     ?  -
+ 115    2026-05-29 22:21    22  ***
+
+SCT Error Recovery Control:
+           Read: Disabled
+          Write: Disabled
+
+Device Statistics (GP/SMART Log 0x04) not supported
+
+SATA Phy Event Counters (GP Log 0x11)
+ID      Size     Value  Description
+0x000a  2            3  Device-to-host register FISes sent due to a COMRESET
+0x0001  2            0  Command failed due to ICRC error
+0x0003  2            0  R_ERR response for device-to-host data FIS
+0x0004  2            0  R_ERR response for host-to-device data FIS
+0x0006  2            0  R_ERR response for device-to-host non-data FIS
+0x0007  2            0  R_ERR response for host-to-device non-data FIS
+

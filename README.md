@@ -90,8 +90,8 @@ These are the drives I have available (with some more on the way):
 | 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | — | — | ~0.7 yrs | PENDING |
 | 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | — | — | ~5.7 yrs | PENDING |
 | 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | — | — | ~0.6 yrs | PENDING |
-| 2TB | | | | | | | | | |
-| 2TB | | | | | | | | | |
+| 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E46C17 | :white_check_mark: | :hourglass: | — | — | ~1.5 yrs | PENDING |
+| 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E7BC0E | :white_check_mark: | :hourglass: | — | :white_check_mark: | ~3.0 yrs | PENDING |
 
 I have about 9x 1TB drives but probably won't use them.
 
@@ -411,6 +411,83 @@ The errors occurred during a surface scan (`READ VERIFY SECTOR(S) EXT` commands)
 **Note:** Seagate Barracuda Green (5900 rpm), not NAS-rated. No TLER/SCT ERC support. Advanced Format (512 logical / 4096 physical). Same caveats as 5YD5PQE7 regarding desktop-only suitability.
 
 **Verdict:** This drive has confirmed unreadable sectors at ~818 GB into the disk, logged at 434 hours of age. The drive has never remapped them. **Do not use as a sole copy of data.** In a redundant array it can contribute, but it should be treated as a degraded member. Consider replacing when possible. Extended self-test completed clean — the problem appears localized to the original LBA region. Run conveyance then badblocks before putting into service.
+
+### Z1E46C17 — Seagate Barracuda 7200.14 ST2000DM001-1CH164
+
+**Serial number decode — `Z1E46C17`:**
+| Part | Meaning |
+|---|---|
+| `Z` | Factory: Zhongshan, China |
+| `1` | Year code (Seagate fiscal year encoding) |
+| `E4` | Week code (alphanumeric fiscal week) |
+| `6C17` | Unit sequence number |
+
+Drive has ~13,191 power-on hours (~1.5 years of active use). Same model family as Z1E9K96R; both carry the `Z1E` prefix suggesting manufacture in the same fiscal year and week range.
+
+⏳ **Overall: PENDING — extended self-test in progress, badblocks not yet run**
+
+- ✅ SMART health: PASSED
+- ⏳ Bad blocks: not yet run
+- ✅ Power-on hours: 13,191 (~1.5 years)
+- ✅ Current temperature: 32°C (lifetime max: 45°C)
+- ✅ Reallocated sectors: 0
+- ✅ Pending sectors: 0
+- ✅ Uncorrectable errors: 0
+- ✅ SMART error log: No errors logged
+- ⏳ Extended self-test: In progress at time of capture (90% remaining at 13,190 hours)
+- ➖ Conveyance self-test: Not supported on this firmware (HP33)
+
+**Notable attributes:**
+- ⚠️ `Load_Cycle_Count`: 185,601 with normalized value of **8** (threshold 0) — extremely high head park count, consistent with aggressive APM head parking in a prior desktop system. Same pattern as ZFL0TF34.
+- ⚠️ `Seek_Error_Rate` worst: 060 (threshold 030) — degraded worst-case but current normalized value (078) is above threshold; monitor.
+- ⚠️ `Command_Timeout`: 2 events — minor; not alarming at this count.
+- ⚠️ `High_Fly_Writes`: 1 — cosmetic; no reallocated sectors, no concern.
+- ✅ `Raw_Read_Error_Rate` normalized 111, healthy (threshold 6).
+- ✅ `UDMA_CRC_Error_Count`: 0 — clean interface history.
+- ✅ `SCT Error Recovery Control`: Read/Write supported — can configure TLER for RAID use.
+
+**Note:** Desktop Barracuda (7200 rpm), not NAS-rated. No TLER configured by default, but SCT ERC is supported (unlike some other drives here). The very high Load_Cycle_Count is the main concern — same pattern as ZFL0TF34.
+
+**Verdict:** Clean SMART history so far. Extended self-test was still running at capture time — wait for completion before drawing conclusions. Run conveyance (if firmware supports it) then badblocks before putting into service.
+
+### Z1E7BC0E — Seagate Barracuda 7200.14 ST2000DM001-1CH164
+
+**Serial number decode — `Z1E7BC0E`:**
+| Part | Meaning |
+|---|---|
+| `Z` | Factory: Zhongshan, China |
+| `1` | Year code (Seagate fiscal year encoding) |
+| `E7` | Week code (alphanumeric fiscal week — slightly later than Z1E46C17) |
+| `BC0E` | Unit sequence number |
+
+Drive has ~26,433 power-on hours (~3.0 years of active use). Shares the `Z1E` year prefix with Z1E46C17 and Z1E9K96R, placing manufacture in the same fiscal year. The later week code (`E7` vs `E4`) suggests it was built a few weeks after Z1E46C17.
+
+⏳ **Overall: PENDING — extended self-test in progress, badblocks not yet run**
+
+- ✅ SMART health: PASSED
+- ⏳ Bad blocks: not yet run
+- ✅ Power-on hours: 26,433 (~3.0 years)
+- ✅ Current temperature: 32°C (lifetime max: 43°C)
+- ✅ Reallocated sectors: 0
+- ✅ Pending sectors: 0
+- ✅ Uncorrectable errors: 0
+- ✅ SMART error log: No errors logged
+- ⏳ Extended self-test: In progress at time of capture (80% remaining at 26,433 hours)
+- ✅ Conveyance self-test: Completed without error (at 26,432 hours)
+
+**Notable attributes:**
+- ✅ `Load_Cycle_Count`: 34,195 (normalized 083) — moderate; not alarming.
+- ✅ `Seek_Error_Rate` normalized 090, worst 060 (threshold 030) — healthy current value.
+- ✅ `High_Fly_Writes`: 0 — clean.
+- ✅ `Command_Timeout`: 0 — no timeout events.
+- ✅ `UDMA_CRC_Error_Count`: 0 — clean interface history.
+- ✅ `Raw_Read_Error_Rate` normalized 119 (threshold 6) — healthy.
+- ✅ `Head_Flying_Hours`: 26,553 — consistent with power-on hours; normal flying time.
+- ➖ `SCT Error Recovery Control`: Not supported on this firmware (CC27) — cannot configure TLER for RAID use.
+
+**Note:** Desktop Barracuda (7200 rpm), not NAS-rated. No SCT ERC / TLER support (same as Z1E9K96R with firmware CC27). `Wt Cache Reorder` also unavailable. The CC27 firmware variant appears to lack these features entirely.
+
+**Verdict:** All available tests clean. Conveyance passed. Extended self-test was still running at capture — wait for completion. Run badblocks before putting into service. Cleanest of the three Z1E-series drives so far.
 
 ### Z1E9K96R — Seagate Barracuda 7200.14 ST2000DM001-1CH164
 

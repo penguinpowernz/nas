@@ -78,18 +78,18 @@ Then an LVM goes over that:
 
 These are the drives I have available (with some more on the way):
 
-| Size | Model | Serial | SMART Health | SMART Extended | Bad Blocks | Conveyance Test | Power-On Hours | Status |
+| Size | Model | Serial | SH | SE | BB | SC | Hours | Status |
 |---|---|---|---|---|---|---|---|---|
-| 2TB | Seagate NAS ST2000VN000-1H3164 | W1H31BLJ | PASSED | PASSED | 0 | — | 56,370 (~6.4 yrs) | OK |
-| 2TB | :warning: WD Red WD20EFRX-68EUZN0 | WD-WCC4M1RYFSH9 | PASSED | PASSED | 16 | — | 56,393 (~6.4 yrs) | CAUTION |
-| 2TB | WD Red WD20EFRX-68EUZN0 | WD-WCC4M7YANCD5 | PASSED | PASSED | 0 | — | 56,393 (~6.4 yrs) | OK |
-| 2TB | Seagate NAS ST2000VN000-1HJ164 | W520VJFQ | PASSED | PASSED | 0 | — | 56,368 (~6.4 yrs) | OK |
-| 2TB | Seagate Barracuda ST2000DM008-2FR102 | WFL3ZBBC | PASSED | PASSED | — | PASSED | 2,451 (~0.3 yrs) | PENDING |
-| 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | PASSED | PASSED | — | PASSED | 487 (~0.06 yrs) | PENDING |
-| 2TB | Seagate Barracuda ST2000DM008-2FR102 | ZFL0TF34 | PASSED | PASSED | — | PASSED | 36,596 (~4.2 yrs) | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | PASSED | IN PROGRESS | — | — | 6,393 (~0.7 yrs) | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | PASSED | IN PROGRESS | — | — | 50,144 (~5.7 yrs) | PENDING |
-| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | PASSED | IN PROGRESS | — | — | 5,157 (~0.6 yrs) | PENDING |
+| 2TB | Seagate NAS ST2000VN000-1H3164 | W1H31BLJ | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
+| 2TB | :warning: WD Red WD20EFRX-68EUZN0 | WD-WCC4M1RYFSH9 | :white_check_mark: | :white_check_mark: | 16 | — | ~6.4 yrs | CAUTION |
+| 2TB | WD Red WD20EFRX-68EUZN0 | WD-WCC4M7YANCD5 | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
+| 2TB | Seagate NAS ST2000VN000-1HJ164 | W520VJFQ | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
+| 2TB | Seagate Barracuda ST2000DM008-2FR102 | WFL3ZBBC | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.3 yrs | PENDING |
+| 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.06 yrs | PENDING |
+| 2TB | Seagate Barracuda ST2000DM008-2FR102 | ZFL0TF34 | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~4.2 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :cyclone: | — | — | ~0.7 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :cyclone: | — | — | ~5.7 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :cyclone: | — | — | ~0.6 yrs | PENDING |
 | 2TB | | | | | | | | | |
 | 2TB | | | | | | | | | |
 

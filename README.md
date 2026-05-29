@@ -89,9 +89,9 @@ These are the drives I have available (with some more on the way):
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | WFL3ZBBC | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.3 yrs | PENDING |
 | 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.06 yrs | PENDING |
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | ZFL0TF34 | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~4.2 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | — | — | ~0.7 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | — | — | ~5.7 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | — | — | ~0.6 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | :hourglass: | — | ~0.7 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | :hourglass: | — | ~5.7 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | :hourglass: | — | ~0.6 yrs | PENDING |
 | 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E46C17 | :white_check_mark: | :hourglass: | — | — | ~1.5 yrs | PENDING |
 | 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E7BC0E | :white_check_mark: | :hourglass: | — | :white_check_mark: | ~3.0 yrs | PENDING |
 

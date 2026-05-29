@@ -80,6 +80,9 @@ Then an LVM goes over that:
 
 These are the drives I have available (with some more on the way):
 
+### Drive comparison
+
+
 | Size | Model | Serial | SH | SE | BB | SC | Hours | Status |
 |---|---|---|---|---|---|---|---|---|
 | 2TB | Seagate NAS ST2000VN000-1H3164 | W1H31BLJ | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
@@ -121,6 +124,23 @@ pool layout is as follows.
 **md0 and md1 are striped at the LVM level (poor-man's RAID10)** — if either mirror fails completely, all data is lost. Both mirrors therefore carry exactly one CAUTION drive, backed by three healthy members each, keeping their failure probability equal and low. The two worst CAUTION drives go to **md3** (OS + restic), where a total mirror failure is recoverable from backups. Before assembling, complete badblocks on WFL3ZBBC, Z1E7BC0E, ZFL0TF34, and Z1E46C17, and swap SATA cables on Z52BBV0P and 5YD5PQE7.
 
 ## Drive Status Reports
+
+| Attribute | …BLJ | …SH9 | …CD5 | …FQ | …BBC | …V0P | …F34 | …QE7 | …WL1 | …C17 | …C0E | …96R |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **Mfr Year** | ~2019 | ~2019 | ~2019 | ~2019 | ~2016 | ~2020s | ~2016 | ~2024 | ~2019 | ~2024 | ~2022 | ~2024 |
+| **Mfr Country** | 🇨🇳 | 🇹🇭 | 🇹🇭 | 🇨🇳 | 🇨🇳 | 🇨🇳 | 🇨🇳 | — | — | 🇨🇳 | 🇨🇳 | 🇨🇳 |
+| **Hours** | 6.4y | 6.4y | 6.4y | 6.4y | 0.3y | 0.06y | 4.2y | 0.7y | 5.7y | 1.5y | 3.0y | 0.6y |
+| **NAS Rated** | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Bad Blocks** | 0 | ⚠️ 16 | 0 | 0 | — | — | — | — | — | — | — | — |
+| **UNC Errors** | 0 | ⚠️ 33 | 0 | 0 | 0 | 0 | 0 | 0 | ⚠️ 15 | 0 | 0 | 0 |
+| **UDMA CRC** | 0 | 0 | 0 | 0 | 0 | ⚠️ 42 | 0 | ⚠️ 104k | 0 | 0 | 0 | 0 |
+| **Load Cycles** | 88 | 1,175 | 1,068 | 2,393 | — | — | ⚠️ 283k | — | ⚠️ 31k | ⚠️ 186k | 34k | 13k |
+| **Start/Stop** | — | ⚠️ 77k | ⚠️ 77k | — | 1,695 | — | — | — | ⚠️ 31k | — | — | — |
+| **High Fly Writes** | ⚠️ 256 | — | — | ⚠️ 37 | 0 | ⚠️ 9 | — | — | — | ⚠️ 1 | 0 | — |
+| **Cmd Timeout** | — | — | — | — | — | ⚠️ 4 | — | ⚠️ 3 | — | ⚠️ 2 | 0 | — |
+| **Runtime Bad Block** | — | — | — | — | — | — | — | ⚠️ 1 | — | — | — | ⚠️ 1 |
+| **Max Temp** | 44°C | 44°C | 45°C | 43°C | 39°C | 35°C | 50°C | ⚠️ 55°C | 40°C | 45°C | 43°C | ⚠️ 82°C |
+| **TLER** | — | — | — | — | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
 
 ### W1H31BLJ — Seagate NAS HDD ST2000VN000-1H3164 (sdb)
 

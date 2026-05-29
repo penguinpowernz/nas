@@ -87,9 +87,9 @@ These are the drives I have available (with some more on the way):
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | WFL3ZBBC | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.3 yrs | PENDING |
 | 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.06 yrs | PENDING |
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | ZFL0TF34 | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~4.2 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :cyclone: | — | — | ~0.7 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :cyclone: | — | — | ~5.7 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :cyclone: | — | — | ~0.6 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | — | — | ~0.7 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | — | — | ~5.7 yrs | PENDING |
+| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | — | — | ~0.6 yrs | PENDING |
 | 2TB | | | | | | | | | |
 | 2TB | | | | | | | | | |
 
@@ -347,17 +347,17 @@ Drive has ~36,600 power-on hours (~4.2 years of active use at time of testing). 
 
 Drive has ~6,393 power-on hours (~0.7 years of active use). The Barracuda Green line was discontinued; this is an older low-power desktop drive.
 
-⚠️ **Overall: CAUTION — serious interface error history, extended self-test in progress**
+⚠️ **Overall: CAUTION — serious interface error history**
 
 - ✅ SMART health: PASSED
 - ⏳ Bad blocks: not yet run
-- ✅ Power-on hours: 6,393 (~0.7 years)
-- ✅ Current temperature: 23°C (lifetime max: 55°C)
+- ✅ Power-on hours: 6,400 (~0.7 years)
+- ✅ Current temperature: 34°C (lifetime max: 55°C)
 - ✅ Reallocated sectors: 0
 - ✅ Pending sectors: 0
 - ✅ Uncorrectable errors: 0
 - ✅ SMART error log: No errors logged
-- ⏳ Extended self-test: In progress at time of capture (90% remaining at 6,393 hours)
+- ✅ Extended self-test: Completed without error (at 6,398 hours)
 - ⏳ Conveyance self-test: not yet run
 
 **Notable attributes:**
@@ -370,7 +370,7 @@ Drive has ~6,393 power-on hours (~0.7 years of active use). The Barracuda Green 
 
 **Note:** Seagate Barracuda Green (5900 rpm), not NAS-rated. No TLER/SCT ERC support. APM is unavailable on this model. Sector sizes are 512 bytes logical / 4096 bytes physical (Advanced Format).
 
-**Verdict:** The 104,030 CRC error count is a serious red flag for the interface environment this drive lived in. Replace the SATA cable and port, then re-run smartctl to confirm the count is not growing. If the extended self-test completes clean and CRC count is stable, run conveyance then badblocks before considering for use.
+**Verdict:** The 104,030 CRC error count is a serious red flag for the interface environment this drive lived in. Replace the SATA cable and port, then re-run smartctl to confirm the count is not growing. Extended self-test completed clean. Run conveyance then badblocks before considering for use.
 
 ### 5YD5VWL1 — Seagate Barracuda Green ST2000DL003-9VT166
 
@@ -387,13 +387,13 @@ Same model family as 5YD5PQE7. Drive has ~50,144 power-on hours (~5.7 years of a
 
 - ✅ SMART health: PASSED (marginal attributes flagged)
 - ⏳ Bad blocks: not yet run
-- ✅ Power-on hours: 50,144 (~5.7 years)
-- ✅ Current temperature: 23°C (lifetime max: 40°C)
+- ✅ Power-on hours: 50,151 (~5.7 years)
+- ✅ Current temperature: 32°C (lifetime max: 40°C)
 - ✅ Reallocated sectors: 0
 - ✅ Pending sectors: 0
 - ⚠️ Uncorrectable errors: 2 (`Reported_Uncorrect` = 2)
 - ❌ **SMART error log: 15 UNC (Uncorrectable) errors recorded**
-- ⏳ Extended self-test: In progress at time of capture (90% remaining at 50,144 hours)
+- ✅ Extended self-test: Completed without error (at 50,149 hours)
 - ⏳ Conveyance self-test: not yet run
 
 **Error log summary:**
@@ -410,7 +410,7 @@ The errors occurred during a surface scan (`READ VERIFY SECTOR(S) EXT` commands)
 
 **Note:** Seagate Barracuda Green (5900 rpm), not NAS-rated. No TLER/SCT ERC support. Advanced Format (512 logical / 4096 physical). Same caveats as 5YD5PQE7 regarding desktop-only suitability.
 
-**Verdict:** This drive has confirmed unreadable sectors at ~818 GB into the disk, logged at 434 hours of age. The drive has never remapped them. **Do not use as a sole copy of data.** In a redundant array it can contribute, but it should be treated as a degraded member. Consider replacing when possible. Wait for the extended self-test to complete before deciding on next steps — it may surface additional errors or confirm the problem is localized.
+**Verdict:** This drive has confirmed unreadable sectors at ~818 GB into the disk, logged at 434 hours of age. The drive has never remapped them. **Do not use as a sole copy of data.** In a redundant array it can contribute, but it should be treated as a degraded member. Consider replacing when possible. Extended self-test completed clean — the problem appears localized to the original LBA region. Run conveyance then badblocks before putting into service.
 
 ### Z1E9K96R — Seagate Barracuda 7200.14 ST2000DM001-1CH164
 
@@ -428,13 +428,13 @@ Drive has ~5,157 power-on hours (~0.6 years of active use). The Barracuda 7200.1
 
 - ✅ SMART health: PASSED (marginal attributes flagged)
 - ⏳ Bad blocks: not yet run
-- ✅ Power-on hours: 5,157 (~0.6 years)
-- ✅ Current temperature: 24°C (lifetime max: 82°C)
+- ✅ Power-on hours: 5,163 (~0.6 years)
+- ✅ Current temperature: 33°C (lifetime max: 82°C)
 - ✅ Reallocated sectors: 0
 - ✅ Pending sectors: 0
 - ✅ Uncorrectable errors: 0
 - ✅ SMART error log: No errors logged
-- ⏳ Extended self-test: In progress at time of capture (90% remaining at 5,157 hours)
+- ✅ Extended self-test: Completed without error (at 5,160 hours)
 - ⏳ Conveyance self-test: not yet run
 
 **Notable attributes:**
@@ -447,5 +447,5 @@ Drive has ~5,157 power-on hours (~0.6 years of active use). The Barracuda 7200.1
 
 **Note:** Desktop Barracuda (7200 rpm), not NAS-rated. No SCT ERC / TLER support. The `Wt Cache Reorder` feature is listed as unavailable on this model.
 
-**Verdict:** The 82°C lifetime maximum temperature is a serious concern — this drive was cooked at some point. Current media metrics are clean (no reallocated sectors, no error log), but thermal damage can be latent. Run the extended self-test to completion and then badblocks before making any decision about using this drive. It should be treated as high-risk until those tests pass clean. Do not use in a critical RAID position without monitoring temperature closely.
+**Verdict:** The 82°C lifetime maximum temperature is a serious concern — this drive was cooked at some point. Current media metrics are clean (no reallocated sectors, no error log), and the extended self-test completed without error. Thermal damage can still be latent. Run conveyance then badblocks before making any decision about using this drive. It should be treated as high-risk until those tests pass clean. Do not use in a critical RAID position without monitoring temperature closely.
 

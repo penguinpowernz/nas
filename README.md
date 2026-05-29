@@ -79,7 +79,7 @@ Then an LVM goes over that:
 These are the drives I have available (with some more on the way):
 
 | Size | Model | Serial | SMART Health | SMART Extended | Bad Blocks | Conveyance Test | Power-On Hours | Status |
-|---|---|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|
 | 2TB | Seagate NAS ST2000VN000-1H3164 | W1H31BLJ | PASSED | PASSED | 0 | — | 56,370 (~6.4 yrs) | OK |
 | 2TB | :warning: WD Red WD20EFRX-68EUZN0 | WD-WCC4M1RYFSH9 | PASSED | PASSED | 16 | — | 56,393 (~6.4 yrs) | CAUTION |
 | 2TB | WD Red WD20EFRX-68EUZN0 | WD-WCC4M7YANCD5 | PASSED | PASSED | 0 | — | 56,393 (~6.4 yrs) | OK |

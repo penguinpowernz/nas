@@ -163,100 +163,116 @@ This is more reliable than GRUB-on-ZFS and simpler to recover from than a pure m
 
 ### Q3: How to layout the drives
 
-**How to layout the drives so that I can have 4TB to store data on, with OS/ESP also being redundant and with snapshots.**
+**How to layout the drives so that I can have 4TB to store data on, with OS also being redundant, 3-drive failure tolerance, hot spares, and a separate off-pool restic backup.**
 
 #### Drive inventory recap
 
 - 12× 2TB drives, many old/suspect
-- Want: ~4TB usable data, redundant OS/ESP, snapshots
+- Want: ~4TB usable data, redundant OS, 3-drive failure tolerance, hot spares
+- Separate off-pool restic backup
 - Prefer redundancy over space
 
-#### Recommended layout: 10-drive raidz2 data pool + 2-drive OS mirror
+#### Final layout
 
 ```
-Drives:   sda sdb sdc sdd sde sdf sdg sdh sdi sdj sdk sdl
-          ─────────────────────────────────────────────────
-          [ESP]      [OS mirror]       [data raidz2 pool]
-          sda1+sdb1  sda2+sdb2         sdc–sdl (10 drives)
-          mdadm 1.0  ZFS mirror vdev   ZFS raidz2 vdev
+Boot:         3× USB sticks               ← FAT32 ESP + ZFSBootMenu EFI binary
+Main pool:    6× HDD raidz3 vdev
+              4× HDD hot spares
+Backup pool:  2× HDD ZFS mirror           ← restic repo only
 ```
 
-**Data pool (10-drive raidz2):**
-- 10 drives × 2TB, raidz2 = 2 parity drives
-- Usable: 8 × 2TB = **~14.5TB raw**, typically ~10-12TB after formatting overhead
-- Survives any 2 simultaneous drive failures
-- With 10 suspect drives, raidz2 is the minimum sensible choice; raidz3 would give 3-drive tolerance at cost of 1.5TB less space
+**Main pool (tank) — 6-drive raidz3 + 4 hot spares:**
+- raidz3 = 3 parity + 3 data drives
+- Usable: 3 × 2TB = **~5.5TB** — comfortably above the 4TB target
+- Tolerates any 3 simultaneous drive failures
+- 4 hot spares: when a vdev drive faults, ZFS automatically resilveres onto a spare
+- All datasets share this pool: OS root, NAS data
 
-**OS mirror (2 drives, sda+sdb):**
-- ZFS mirror vdev on a separate pool (e.g., `bpool`/`rpool` naming from OpenZFS guides)
-- Each drive partitioned:
-  - Partition 1: ESP (~512MB, FAT32, mdadm 1.0 RAID-1)
-  - Partition 2: ZFS (remaining space, ~50-100GB for OS)
-- Survives failure of either sda or sdb
+**Backup pool (backup) — 2-drive ZFS mirror:**
+- Separate failure domain from the main pool
+- Holds only the restic repo — restic backs up `tank/data` here on a schedule
+- ZFS checksumming protects the restic repo itself from silent corruption
+- Usable: 2TB (one drive's worth)
 
-#### Why raidz2 over raidz3 here
+**Boot (3× USB sticks):**
+- Each USB holds a FAT32 ESP with the ZFSBootMenu EFI binary
+- UEFI tries each in order — any one USB is enough to boot
+- All 12 HDDs are whole-disk ZFS (no partitioning needed)
+- Update: when ZFSBootMenu is upgraded, copy the new EFI binary to all 3 USBs
 
-With 10 data drives you get raidz2 (2 parity). If you want raidz3:
-- Use all 12 drives in one raidz3 vdev → usable: 9 × 2TB ≈ 16.4TB
-- But this puts OS on the same pool or requires a separate pair, leaving only 10 drives for data: 10-drive raidz3 → 7 × 2TB ≈ 12.7TB usable
-- Given your goal is ~4TB, raidz2 with 10 drives vastly exceeds the target with a good safety margin
-
-#### Alternative: raidz3 with all 12 drives, OS on separate SSD
-
-If you can add even a single cheap SSD (or two for mirror), put the OS there and use all 12 drives for data:
+#### Datasets
 
 ```
-12-drive raidz3:  usable ≈ 9 × 2TB = ~16.4TB
-OS: 2× SSD mirror (separate pool)
-ESP: mdadm 1.0 on SSD pair
+tank/ROOT/ubuntu    ← OS root (ZFSBootMenu boots this)
+tank/data           ← NAS data
+
+backup/restic       ← restic repo (backs up tank/data)
 ```
 
-This is the cleaner long-term design and SSDs are extremely cheap. Highly recommended if budget allows.
-
-#### Partition setup commands (sketch)
+Set quotas to prevent any one dataset filling the pool:
 
 ```bash
-# On each OS drive (sda, sdb):
-sgdisk --zap-all /dev/sda
-sgdisk -n1:1M:+512M -t1:EF00 /dev/sda   # ESP
-sgdisk -n2:0:+100G  -t2:BF00 /dev/sda   # ZFS OS
+zfs set quota=50G   tank/ROOT
+zfs set quota=4T    tank/data
+# backup pool is 2TB total — restic will fill it naturally up to that limit
+```
 
-# ESP mirror (mdadm, metadata at end so firmware sees FAT32):
-mdadm --create /dev/md0 --level=1 --metadata=1.0 \
-      --raid-devices=2 /dev/sda1 /dev/sdb1
-mkfs.vfat -F32 /dev/md0
+#### Failure sequence with hot spares
 
-# OS ZFS mirror pool:
+```
+Normal:          raidz3 tolerates 3 failures
+1 drive fails  → spare resilveres in (hours); 2 failure tolerance during resilver
+2nd fails      → 2nd spare resilveres in; 1 failure tolerance during resilver
+3rd fails      → 3rd spare resilveres in; 0 tolerance — any further failure = data loss
+4th fails      → pool lost
+```
+
+Note: resilvering reads every block on every remaining drive — the most stressful moment for old hardware. raidz3 gives maximum runway through this window.
+
+#### Setup commands
+
+```bash
+# Main pool (6 raidz3 drives + 4 spares, whole disk):
 zpool create -o ashift=12 \
   -O compression=zstd -O atime=off \
-  rpool mirror \
-  /dev/disk/by-id/ata-DRIVE_A-part2 \
-  /dev/disk/by-id/ata-DRIVE_B-part2
-
-# Data pool (10 drives, raidz2):
-zpool create -o ashift=12 \
-  -O compression=zstd -O atime=off \
-  tank raidz2 \
+  tank raidz3 \
+  /dev/disk/by-id/ata-DRIVE_A \
+  /dev/disk/by-id/ata-DRIVE_B \
   /dev/disk/by-id/ata-DRIVE_C \
   /dev/disk/by-id/ata-DRIVE_D \
-  ... (all 10 data drives)
+  /dev/disk/by-id/ata-DRIVE_E \
+  /dev/disk/by-id/ata-DRIVE_F \
+  spare \
+  /dev/disk/by-id/ata-DRIVE_G \
+  /dev/disk/by-id/ata-DRIVE_H \
+  /dev/disk/by-id/ata-DRIVE_I \
+  /dev/disk/by-id/ata-DRIVE_J
 
-# Dataset for data:
-zfs create tank/data
-zfs create tank/snapshots   # optional, for restic target
+# Datasets:
+zfs create -o mountpoint=/   tank/ROOT
+zfs create                   tank/ROOT/ubuntu
+zfs create -o mountpoint=/home tank/home
+zfs create -o mountpoint=/data tank/data
 
-# Enable snapshots:
-apt install zfs-auto-snapshot
+# Backup pool (2-drive ZFS mirror, whole disk):
+zpool create -o ashift=12 \
+  -O compression=zstd -O atime=off \
+  backup mirror \
+  /dev/disk/by-id/ata-DRIVE_K \
+  /dev/disk/by-id/ata-DRIVE_L
+
+zfs create backup/restic
 ```
 
 Always reference drives by `/dev/disk/by-id/...` — never by `/dev/sdX` which can change on reboot.
 
 #### Scrubbing
 
-Schedule monthly scrubs to detect and repair bit rot:
+Schedule monthly scrubs on both pools to detect and repair bit rot:
+
 ```bash
 # /etc/cron.d/zfs-scrub
-0 2 1 * * root zpool scrub tank && zpool scrub rpool
+0 2 1 * * root zpool scrub tank && zpool scrub backup
 ```
 
 ### Q4: What are the analogues between ZFS and mdadm/LVM

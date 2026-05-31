@@ -14,7 +14,7 @@ Rotation Rate:    5900 rpm
 Device is:        In smartctl database [for details use: -P show]
 ATA Version is:   ATA8-ACS T13/1699-D revision 4
 SATA Version is:  SATA 3.0, 6.0 Gb/s (current: 6.0 Gb/s)
-Local Time is:    Sun May 31 16:04:15 2026 NZST
+Local Time is:    Sun May 31 16:16:09 2026 NZST
 SMART support is: Available - device has SMART capability.
 SMART support is: Enabled
 AAM level is:     254 (maximum performance), recommended: 254
@@ -68,7 +68,7 @@ ID# ATTRIBUTE_NAME          FLAGS    VALUE WORST THRESH FAIL RAW_VALUE
   3 Spin_Up_Time            PO----   092   092   000    -    0
   4 Start_Stop_Count        -O--CK   100   100   020    -    315
   5 Reallocated_Sector_Ct   PO--CK   100   100   036    -    0
-  7 Seek_Error_Rate         POSR--   074   060   030    -    4322337045
+  7 Seek_Error_Rate         POSR--   074   060   030    -    4322337232
   9 Power_On_Hours          -O--CK   093   093   000    -    6441
  10 Spin_Retry_Count        PO--C-   100   100   097    -    0
  12 Power_Cycle_Count       -O--CK   100   100   020    -    304
@@ -86,7 +86,7 @@ ID# ATTRIBUTE_NAME          FLAGS    VALUE WORST THRESH FAIL RAW_VALUE
 197 Current_Pending_Sector  -O--C-   100   100   000    -    0
 198 Offline_Uncorrectable   ----C-   100   100   000    -    0
 199 UDMA_CRC_Error_Count    -OSRCK   200   182   000    -    104030
-240 Head_Flying_Hours       ------   100   253   000    -    5599 (32 53 0)
+240 Head_Flying_Hours       ------   100   253   000    -    5599 (2 78 0)
 241 Total_LBAs_Written      ------   100   253   000    -    2931437449
 242 Total_LBAs_Read         ------   100   253   000    -    826591112
                             ||||||_ K auto-keep
@@ -128,8 +128,9 @@ No Errors Logged
 
 SMART Extended Self-test Log Version: 1 (1 sectors)
 Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
-# 1  Extended offline    Completed without error       00%      6398         -
-# 2  Short offline       Completed without error       00%      6393         -
+# 1  Conveyance offline  Completed without error       00%      6441         -
+# 2  Extended offline    Completed without error       00%      6398         -
+# 3  Short offline       Completed without error       00%      6393         -
 
 SMART Selective self-test log data structure revision number 1
  SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS

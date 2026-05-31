@@ -92,9 +92,9 @@ These are the drives I have available (with some more on the way):
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | WFL3ZBBC | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.3 yrs | PENDING |
 | 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.06 yrs | PENDING |
 | 2TB | Seagate Barracuda ST2000DM008-2FR102 | ZFL0TF34 | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~4.2 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | 0 | — | ~0.7 yrs | CAUTION |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | 0 | — | ~5.7 yrs | CAUTION |
-| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | 0 | — | ~0.6 yrs | CAUTION |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~0.7 yrs | CAUTION |
+| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~5.7 yrs | CAUTION |
+| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~0.6 yrs | CAUTION |
 | 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E46C17 | :white_check_mark: | :white_check_mark: | 0 | — | ~1.5 yrs | OK |
 | 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E7BC0E | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~3.0 yrs | OK |
 
@@ -118,10 +118,10 @@ pool layout is as follows.
 | | 5YD5VWL1 | CAUTION: confirmed UNC errors at ~818 GB; 3 healthy drives carry it; one CAUTION per data mirror keeps both mirrors equally reliable |
 | /dev/md3 | ZFL0TF34 | Extended + conveyance tests clean; badblocks pending — complete before activating |
 | | Z1E46C17 | High Load_Cycle_Count (185k); all tests now passed (extended, badblocks); weakest non-CAUTION drive — suits the lower-stakes OS/backup mirror |
-| | Z1E9K96R | CAUTION: 82°C thermal history, 1 runtime bad block; badblocks clean, conveyance still pending; md3 failure loses only OS/backup |
-| | 5YD5PQE7 | CAUTION: 104,030 CRC errors (interface, not media); badblocks clean, conveyance still pending; replace SATA cable first |
+| | Z1E9K96R | CAUTION: 82°C thermal history, 1 runtime bad block; badblocks and conveyance both clean; md3 failure loses only OS/backup |
+| | 5YD5PQE7 | CAUTION: 104,030 CRC errors (interface, not media); badblocks and conveyance both clean; replace SATA cable first |
 
-**md0 and md1 are striped at the LVM level (poor-man's RAID10)** — if either mirror fails completely, all data is lost. Both mirrors therefore carry exactly one CAUTION drive, backed by three healthy members each, keeping their failure probability equal and low. The two worst CAUTION drives go to **md3** (OS + restic), where a total mirror failure is recoverable from backups. Before assembling: complete badblocks on WFL3ZBBC and ZFL0TF34; swap SATA cables on Z52BBV0P and 5YD5PQE7; run conveyance on Z1E9K96R, 5YD5VWL1, and 5YD5PQE7. Z1E46C17, Z1E7BC0E, and Z1E9K96R badblocks are now complete.
+**md0 and md1 are striped at the LVM level (poor-man's RAID10)** — if either mirror fails completely, all data is lost. Both mirrors therefore carry exactly one CAUTION drive, backed by three healthy members each, keeping their failure probability equal and low. The two worst CAUTION drives go to **md3** (OS + restic), where a total mirror failure is recoverable from backups. Before assembling: complete badblocks on WFL3ZBBC and ZFL0TF34; swap SATA cables on Z52BBV0P and 5YD5PQE7. All conveyance tests are now complete. Z1E46C17, Z1E7BC0E, and Z1E9K96R badblocks are now complete.
 
 ## Drive Status Reports
 
@@ -403,7 +403,7 @@ Drive has ~6,393 power-on hours (~0.7 years of active use). The Barracuda Green 
 - ✅ Uncorrectable errors: 0
 - ✅ SMART error log: No errors logged
 - ✅ Extended self-test: Completed without error (at 6,398 hours)
-- ⏳ Conveyance self-test: not yet run
+- ✅ Conveyance self-test: Completed without error (at 6,441 hours)
 
 **Notable attributes:**
 - ❌ `UDMA_CRC_Error_Count`: 104,030 — extremely high. This is an order of magnitude beyond what is seen on other drives here. Indicates severe and sustained interface problems in its prior life — likely a bad cable, enclosure, or controller. Not a drive media fault, but this history demands a cable/port swap and re-check before trusting the drive.
@@ -415,7 +415,7 @@ Drive has ~6,393 power-on hours (~0.7 years of active use). The Barracuda Green 
 
 **Note:** Seagate Barracuda Green (5900 rpm), not NAS-rated. No TLER/SCT ERC support. APM is unavailable on this model. Sector sizes are 512 bytes logical / 4096 bytes physical (Advanced Format).
 
-**Verdict:** The 104,030 CRC error count is a serious red flag for the interface environment this drive lived in. Replace the SATA cable and port, then re-run smartctl to confirm the count is not growing. Extended self-test completed clean. Run conveyance then badblocks before considering for use.
+**Verdict:** The 104,030 CRC error count is a serious red flag for the interface environment this drive lived in. Replace the SATA cable and port, then re-run smartctl to confirm the count is not growing. Extended and conveyance self-tests both completed clean. Run badblocks before putting into service.
 
 ### 5YD5VWL1 — Seagate Barracuda Green ST2000DL003-9VT166
 
@@ -439,7 +439,7 @@ Same model family as 5YD5PQE7. Drive has ~50,144 power-on hours (~5.7 years of a
 - ⚠️ Uncorrectable errors: 2 (`Reported_Uncorrect` = 2)
 - ❌ **SMART error log: 15 UNC (Uncorrectable) errors recorded** (from early-life surface scan at 434 hours)
 - ✅ Extended self-test: Completed without error (at 50,149 hours)
-- ⏳ Conveyance self-test: not yet run
+- ✅ Conveyance self-test: Completed without error (at 50,192 hours)
 
 **Error log summary:**
 All 15 logged errors are `UNC` (Uncorrectable Read) errors, occurring at disk power-on lifetime 434 hours (very early in the drive's life), clustered tightly around a single LBA region:
@@ -455,7 +455,7 @@ The errors occurred during a surface scan (`READ VERIFY SECTOR(S) EXT` commands)
 
 **Note:** Seagate Barracuda Green (5900 rpm), not NAS-rated. No TLER/SCT ERC support. Advanced Format (512 logical / 4096 physical). Same caveats as 5YD5PQE7 regarding desktop-only suitability.
 
-**Verdict:** This drive has confirmed unreadable sectors at ~818 GB into the disk, logged at 434 hours of age. Badblocks (destructive write-then-read) completed with 0 errors — the write pass overwrote the bad region and the subsequent read verified correctly, meaning the sectors responded to rewrite. The drive has not remapped them (Reallocated_Sector_Ct = 0), suggesting the media is marginal rather than permanently failed. **Do not use as a sole copy of data.** In a redundant array it can contribute, but it should be treated as a degraded member and monitored. Consider replacing when possible. Run conveyance self-test before putting into service.
+**Verdict:** This drive has confirmed unreadable sectors at ~818 GB into the disk, logged at 434 hours of age. Badblocks (destructive write-then-read) completed with 0 errors — the write pass overwrote the bad region and the subsequent read verified correctly, meaning the sectors responded to rewrite. The drive has not remapped them (Reallocated_Sector_Ct = 0), suggesting the media is marginal rather than permanently failed. Conveyance self-test completed clean. **Do not use as a sole copy of data.** In a redundant array it can contribute, but it should be treated as a degraded member and monitored. Consider replacing when possible.
 
 ### Z1E46C17 — Seagate Barracuda 7200.14 ST2000DM001-1CH164
 
@@ -557,7 +557,7 @@ Drive has ~5,157 power-on hours (~0.6 years of active use). The Barracuda 7200.1
 - ✅ Uncorrectable errors: 0
 - ✅ SMART error log: No errors logged
 - ✅ Extended self-test: Completed without error (at 5,160 hours)
-- ⏳ Conveyance self-test: not yet run
+- ✅ Conveyance self-test: Completed without error (at 5,205 hours)
 
 **Notable attributes:**
 - ❌ `Airflow_Temperature_Cel` worst value: 018, threshold: 045 — the worst normalized value (018) is **below** the failure threshold (045), meaning this attribute has historically been in a PAST FAIL state. The lifetime max temperature of **82°C** confirms the drive experienced extreme overheating at some point. Seagate's max recommended operating temp for this model is 60°C; 82°C is 22°C beyond that limit. Thermal damage to heads and platters is a real risk at these temperatures.
@@ -569,7 +569,7 @@ Drive has ~5,157 power-on hours (~0.6 years of active use). The Barracuda 7200.1
 
 **Note:** Desktop Barracuda (7200 rpm), not NAS-rated. No SCT ERC / TLER support. The `Wt Cache Reorder` feature is listed as unavailable on this model.
 
-**Verdict:** The 82°C lifetime maximum temperature remains a serious concern — this drive was cooked at some point. Badblocks now completed with 0 errors, and the extended self-test passed clean, which is reassuring. Thermal damage can still be latent. Run conveyance self-test before putting into service. Continue to treat as high-risk and do not use in a critical RAID position; monitor temperature closely in the new enclosure.
+**Verdict:** The 82°C lifetime maximum temperature remains a serious concern — this drive was cooked at some point. Badblocks completed with 0 errors, and extended and conveyance self-tests both passed clean, which is reassuring. Thermal damage can still be latent. Continue to treat as high-risk and do not use in a critical RAID position; monitor temperature closely in the new enclosure.
 
 ## Drive Information
 

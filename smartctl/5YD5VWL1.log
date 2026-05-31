@@ -14,7 +14,7 @@ Rotation Rate:    5900 rpm
 Device is:        In smartctl database [for details use: -P show]
 ATA Version is:   ATA8-ACS T13/1699-D revision 4
 SATA Version is:  SATA 3.0, 6.0 Gb/s (current: 6.0 Gb/s)
-Local Time is:    Sun May 31 16:04:20 2026 NZST
+Local Time is:    Sun May 31 16:16:12 2026 NZST
 SMART support is: Available - device has SMART capability.
 SMART support is: Enabled
 AAM feature is:   Disabled
@@ -67,7 +67,7 @@ ID# ATTRIBUTE_NAME          FLAGS    VALUE WORST THRESH FAIL RAW_VALUE
   3 Spin_Up_Time            PO----   093   083   000    -    0
   4 Start_Stop_Count        -O--CK   070   070   020    -    31269
   5 Reallocated_Sector_Ct   PO--CK   100   100   036    -    0
-  7 Seek_Error_Rate         POSR--   069   060   030    -    60269343899
+  7 Seek_Error_Rate         POSR--   069   060   030    -    60269344082
   9 Power_On_Hours          -O--CK   043   011   000    -    50192
  10 Spin_Retry_Count        PO--C-   100   100   097    -    0
  12 Power_Cycle_Count       -O--CK   100   100   020    -    123
@@ -81,11 +81,11 @@ ID# ATTRIBUTE_NAME          FLAGS    VALUE WORST THRESH FAIL RAW_VALUE
 192 Power-Off_Retract_Count -O--CK   100   100   000    -    67
 193 Load_Cycle_Count        -O--CK   085   085   000    -    31270
 194 Temperature_Celsius     -O---K   029   041   000    -    29 (0 14 0 0 0)
-195 Hardware_ECC_Recovered  -O-RC-   031   003   000    -    75639704
+195 Hardware_ECC_Recovered  -O-RC-   030   003   000    -    75639704
 197 Current_Pending_Sector  -O--C-   100   100   000    -    0
 198 Offline_Uncorrectable   ----C-   100   100   000    -    0
 199 UDMA_CRC_Error_Count    -OSRCK   200   200   000    -    0
-240 Head_Flying_Hours       ------   100   253   000    -    52853 (240 5 0)
+240 Head_Flying_Hours       ------   100   253   000    -    52853 (207 61 0)
 241 Total_LBAs_Written      ------   100   253   000    -    2178435267
 242 Total_LBAs_Read         ------   100   253   000    -    2558958523
                             ||||||_ K auto-keep
@@ -277,8 +277,9 @@ Error 8 [7] occurred at disk power-on lifetime: 434 hours (18 days + 2 hours)
 
 SMART Extended Self-test Log Version: 1 (1 sectors)
 Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
-# 1  Extended offline    Completed without error       00%     50149         -
-# 2  Short offline       Completed without error       00%     50142         -
+# 1  Conveyance offline  Completed without error       00%     50192         -
+# 2  Extended offline    Completed without error       00%     50149         -
+# 3  Short offline       Completed without error       00%     50142         -
 
 SMART Selective self-test log data structure revision number 1
  SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS

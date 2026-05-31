@@ -15,7 +15,7 @@ Form Factor:      3.5 inches
 Device is:        In smartctl database [for details use: -P show]
 ATA Version is:   ACS-2, ATA8-ACS T13/1699-D revision 4
 SATA Version is:  SATA 3.0, 6.0 Gb/s (current: 6.0 Gb/s)
-Local Time is:    Sun May 31 16:04:18 2026 NZST
+Local Time is:    Sun May 31 16:16:10 2026 NZST
 SMART support is: Available - device has SMART capability.
 SMART support is: Enabled
 AAM feature is:   Unavailable
@@ -68,7 +68,7 @@ ID# ATTRIBUTE_NAME          FLAGS    VALUE WORST THRESH FAIL RAW_VALUE
   4 Start_Stop_Count        -O--CK   098   098   020    -    2407
   5 Reallocated_Sector_Ct   PO--CK   100   100   036    -    0
   7 Seek_Error_Rate         POSR-K   075   060   030    -    17323950986
-  9 Power_On_Hours          -O--CK   085   085   000    -    13232
+  9 Power_On_Hours          -O--CK   085   085   000    -    13233
  10 Spin_Retry_Count        PO--CK   100   100   097    -    0
  12 Power_Cycle_Count       -O--CK   098   098   020    -    2402
 180 Unknown_HDD_Attribute   -O-R-K   100   100   000    -    1648398600

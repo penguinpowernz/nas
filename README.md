@@ -85,18 +85,18 @@ These are the drives I have available (with some more on the way):
 
 | Size | Model | Serial | SH | SE | BB | SC | Hours | Status |
 |---|---|---|---|---|---|---|---|---|
-| 2TB | Seagate NAS ST2000VN000-1H3164 | W1H31BLJ | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
-| 2TB | :warning: WD Red WD20EFRX-68EUZN0 | WD-WCC4M1RYFSH9 | :white_check_mark: | :white_check_mark: | 16 | — | ~6.4 yrs | CAUTION |
+| 2TB | SG NAS ST2000VN000-1H3164 | W1H31BLJ | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
+| 2TB | WD Red WD20EFRX-68EUZN0 | WD-WCC4M1RYFSH9 | :white_check_mark: | :white_check_mark: | 16 | — | ~6.4 yrs | :warning: |
 | 2TB | WD Red WD20EFRX-68EUZN0 | WD-WCC4M7YANCD5 | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
-| 2TB | Seagate NAS ST2000VN000-1HJ164 | W520VJFQ | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
-| 2TB | Seagate Barracuda ST2000DM008-2FR102 | WFL3ZBBC | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.3 yrs | PENDING |
-| 2TB | Seagate IronWolf ST2000VN004-2E4164 | Z52BBV0P | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.06 yrs | PENDING |
-| 2TB | Seagate Barracuda ST2000DM008-2FR102 | ZFL0TF34 | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~4.2 yrs | PENDING |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~0.7 yrs | CAUTION |
-| 2TB | :warning: Seagate Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~5.7 yrs | CAUTION |
-| 2TB | :warning: Seagate Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~0.6 yrs | CAUTION |
-| 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E46C17 | :white_check_mark: | :white_check_mark: | 0 | — | ~1.5 yrs | OK |
-| 2TB | Seagate Barracuda 7200.14 ST2000DM001-1CH164 | Z1E7BC0E | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~3.0 yrs | OK |
+| 2TB | SG NAS ST2000VN000-1HJ164 | W520VJFQ | :white_check_mark: | :white_check_mark: | 0 | — | ~6.4 yrs | OK |
+| 2TB | SG Barracuda ST2000DM008-2FR102 | WFL3ZBBC | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.3 yrs | PENDING |
+| 2TB | SG IronWolf ST2000VN004-2E4164 | Z52BBV0P | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~0.06 yrs | PENDING |
+| 2TB | SG Barracuda ST2000DM008-2FR102 | ZFL0TF34 | :white_check_mark: | :white_check_mark: | — | :white_check_mark: | ~4.2 yrs | PENDING |
+| 2TB | SG Barracuda Green ST2000DL003-9VT166 | 5YD5PQE7 | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~0.7 yrs | :warning: |
+| 2TB | SG Barracuda Green ST2000DL003-9VT166 | 5YD5VWL1 | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~5.7 yrs | :warning: |
+| 2TB | SG Barracuda ST2000DM001-1CH164 | Z1E9K96R | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~0.6 yrs | :warning: |
+| 2TB | SG Barracuda 7200.14 ST2000DM001-1CH164 | Z1E46C17 | :white_check_mark: | :white_check_mark: | 0 | — | ~1.5 yrs | OK |
+| 2TB | SG Barracuda 7200.14 ST2000DM001-1CH164 | Z1E7BC0E | :white_check_mark: | :white_check_mark: | 0 | :white_check_mark: | ~3.0 yrs | OK |
 
 I have about 9x 1TB drives but probably won't use them.
 

@@ -1,0 +1,11 @@
+Checking for bad blocks in read-write mode
+From block 0 to 488378645
+Testing with pattern 0xaa:   0.00% done, 0:01 elapsed. (0/0/0 errors)
+Reading and comparing:   0.00% done, 5:06:47 elapsed. (0/0/0 errors)
+Testing with pattern 0x55:   0.00% done, 10:14:35 elapsed. (0/0/0 errors)
+Reading and comparing:   0.00% done, 15:20:16 elapsed. (0/0/0 errors)
+Testing with pattern 0xff:   0.00% done, 20:27:58 elapsed. (0/0/0 errors)
+Reading and comparing:   0.00% done, 25:33:37 elapsed. (0/0/0 errors)
+Testing with pattern 0x00:   0.00% done, 30:41:17 elapsed. (0/0/0 errors)
+Reading and comparing:   0.00% done, 35:46:56 elapsed. (0/0/0 errors)
+Pass completed, 0 bad blocks found. (0/0/0 errors)
